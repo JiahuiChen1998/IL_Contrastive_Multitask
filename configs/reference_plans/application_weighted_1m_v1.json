@@ -1,0 +1,1724 @@
+{
+  "schema": "application_weighted_1m_v1",
+  "smoke": false,
+  "applications": {
+    "heat_transfer": {
+      "label": "Heat-transfer fluids",
+      "primary": [
+        "heat_capacity",
+        "thermal_conductivity",
+        "viscosity",
+        "melting_point",
+        "decomposition_temperature"
+      ]
+    },
+    "co2_absorbent": {
+      "label": "CO2 absorbents",
+      "primary": [
+        "co2_solubility",
+        "viscosity",
+        "melting_point"
+      ]
+    }
+  },
+  "tasks": {
+    "melting_point": {
+      "file": "melting point.xlsx",
+      "sheet": "Sheet1",
+      "target": "MP_K",
+      "unit": "K",
+      "temperature": null,
+      "pressure": null,
+      "pressure_factor": 1.0,
+      "pressure_unit": null,
+      "transform": "identity",
+      "head": "mlp"
+    },
+    "glass_transition": {
+      "file": "GTT_V.xlsx",
+      "sheet": "Sheet1",
+      "target": "GTT",
+      "unit": "degC",
+      "temperature": null,
+      "pressure": null,
+      "pressure_factor": 1.0,
+      "pressure_unit": null,
+      "transform": "identity",
+      "head": "mlp"
+    },
+    "decomposition_temperature": {
+      "file": "TDECOMP_V.xlsx",
+      "sheet": "Sheet1",
+      "target": "TDECOMP_Celcius",
+      "unit": "degC",
+      "temperature": null,
+      "pressure": null,
+      "pressure_factor": 1.0,
+      "pressure_unit": null,
+      "transform": "identity",
+      "head": "mlp"
+    },
+    "toxicity": {
+      "file": "IL-TOX.xlsx",
+      "sheet": "TOX",
+      "target": "Experimental logEC50",
+      "unit": "log10(EC50), source convention",
+      "temperature": null,
+      "pressure": null,
+      "pressure_factor": 1.0,
+      "pressure_unit": null,
+      "transform": "identity",
+      "head": "mlp"
+    },
+    "density": {
+      "file": "density_P.xlsx",
+      "sheet": "raw",
+      "target": "ρ / kg/m3",
+      "unit": "kg/m3",
+      "temperature": "T / K",
+      "pressure": "p / MPa",
+      "pressure_factor": 1.0,
+      "pressure_unit": "MPa",
+      "transform": "identity",
+      "head": "mlp"
+    },
+    "viscosity": {
+      "file": "viscosity_P.xlsx",
+      "sheet": "viscosity",
+      "target": "η / mPa s",
+      "unit": "mPa s",
+      "temperature": "T / K",
+      "pressure": null,
+      "pressure_factor": 1.0,
+      "pressure_unit": null,
+      "transform": "log",
+      "head": "vft"
+    },
+    "heat_capacity": {
+      "file": "heat capacity_V.xlsx",
+      "sheet": "Sheet1",
+      "target": "HCAP",
+      "unit": "workbook HCAP unit (unverified)",
+      "temperature": "Temperature",
+      "pressure": "Pressure",
+      "pressure_factor": 1.0,
+      "pressure_unit": "workbook Pressure unit (unverified)",
+      "transform": "identity",
+      "head": "mlp"
+    },
+    "refractive_index": {
+      "file": "RI_V.xlsx",
+      "sheet": "Sheet1",
+      "target": "RI",
+      "unit": "dimensionless",
+      "temperature": "TEMPERATURE(K)",
+      "pressure": null,
+      "pressure_factor": 1.0,
+      "pressure_unit": null,
+      "transform": "identity",
+      "head": "mlp"
+    },
+    "surface_tension": {
+      "file": "SURFACETENSION_V.xlsx",
+      "sheet": "Sheet1",
+      "target": "SurfaceTension",
+      "unit": "workbook native (consistent with N/m)",
+      "temperature": "Temperature",
+      "pressure": null,
+      "pressure_factor": 1.0,
+      "pressure_unit": null,
+      "transform": "identity",
+      "head": "linear"
+    },
+    "thermal_conductivity": {
+      "file": "THCOND_V.xlsx",
+      "sheet": "Sheet1",
+      "target": "THCOND",
+      "unit": "workbook native (consistent with W/(m K))",
+      "temperature": "Temperature",
+      "pressure": null,
+      "pressure_factor": 1.0,
+      "pressure_unit": null,
+      "transform": "identity",
+      "head": "mlp"
+    },
+    "co2_solubility": {
+      "file": "co2solubility_S.xlsx",
+      "sheet": "co2solubility",
+      "target": "x_CO2",
+      "unit": "mole fraction",
+      "temperature": "T (K)",
+      "pressure": "P (bar)",
+      "pressure_factor": 0.1,
+      "pressure_unit": "MPa",
+      "transform": "log",
+      "head": "mlp"
+    }
+  },
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "arms": [
+    "uniform_plain",
+    "weighted_plain"
+  ],
+  "jobs": [
+    {
+      "id": "heat_transfer/42/uniform_plain",
+      "application": "heat_transfer",
+      "seed": 42,
+      "arm": "uniform_plain",
+      "selection_tasks": [
+        "heat_capacity",
+        "thermal_conductivity",
+        "viscosity",
+        "melting_point",
+        "decomposition_temperature"
+      ],
+      "weights": {
+        "melting_point": 0.09090909090909091,
+        "glass_transition": 0.09090909090909091,
+        "decomposition_temperature": 0.09090909090909091,
+        "toxicity": 0.09090909090909091,
+        "density": 0.09090909090909091,
+        "viscosity": 0.09090909090909091,
+        "heat_capacity": 0.09090909090909091,
+        "refractive_index": 0.09090909090909091,
+        "surface_tension": 0.09090909090909091,
+        "thermal_conductivity": 0.09090909090909091,
+        "co2_solubility": 0.09090909090909091
+      },
+      "output": "runs/application_weighted_1m_v1/fits/heat_transfer/seed_42/uniform_plain",
+      "command": [
+        "python",
+        "-u",
+        "-m",
+        "scripts.application_weighted_1m.train",
+        "--root",
+        "runs/application_weighted_1m_v1",
+        "--job",
+        "heat_transfer/42/uniform_plain"
+      ]
+    },
+    {
+      "id": "heat_transfer/42/weighted_plain",
+      "application": "heat_transfer",
+      "seed": 42,
+      "arm": "weighted_plain",
+      "selection_tasks": [
+        "heat_capacity",
+        "thermal_conductivity",
+        "viscosity",
+        "melting_point",
+        "decomposition_temperature"
+      ],
+      "weights": {
+        "melting_point": 0.18,
+        "glass_transition": 0.016666666666666666,
+        "decomposition_temperature": 0.18,
+        "toxicity": 0.016666666666666666,
+        "density": 0.016666666666666666,
+        "viscosity": 0.18,
+        "heat_capacity": 0.18,
+        "refractive_index": 0.016666666666666666,
+        "surface_tension": 0.016666666666666666,
+        "thermal_conductivity": 0.18,
+        "co2_solubility": 0.016666666666666666
+      },
+      "output": "runs/application_weighted_1m_v1/fits/heat_transfer/seed_42/weighted_plain",
+      "command": [
+        "python",
+        "-u",
+        "-m",
+        "scripts.application_weighted_1m.train",
+        "--root",
+        "runs/application_weighted_1m_v1",
+        "--job",
+        "heat_transfer/42/weighted_plain"
+      ]
+    },
+    {
+      "id": "heat_transfer/43/uniform_plain",
+      "application": "heat_transfer",
+      "seed": 43,
+      "arm": "uniform_plain",
+      "selection_tasks": [
+        "heat_capacity",
+        "thermal_conductivity",
+        "viscosity",
+        "melting_point",
+        "decomposition_temperature"
+      ],
+      "weights": {
+        "melting_point": 0.09090909090909091,
+        "glass_transition": 0.09090909090909091,
+        "decomposition_temperature": 0.09090909090909091,
+        "toxicity": 0.09090909090909091,
+        "density": 0.09090909090909091,
+        "viscosity": 0.09090909090909091,
+        "heat_capacity": 0.09090909090909091,
+        "refractive_index": 0.09090909090909091,
+        "surface_tension": 0.09090909090909091,
+        "thermal_conductivity": 0.09090909090909091,
+        "co2_solubility": 0.09090909090909091
+      },
+      "output": "runs/application_weighted_1m_v1/fits/heat_transfer/seed_43/uniform_plain",
+      "command": [
+        "python",
+        "-u",
+        "-m",
+        "scripts.application_weighted_1m.train",
+        "--root",
+        "runs/application_weighted_1m_v1",
+        "--job",
+        "heat_transfer/43/uniform_plain"
+      ]
+    },
+    {
+      "id": "heat_transfer/43/weighted_plain",
+      "application": "heat_transfer",
+      "seed": 43,
+      "arm": "weighted_plain",
+      "selection_tasks": [
+        "heat_capacity",
+        "thermal_conductivity",
+        "viscosity",
+        "melting_point",
+        "decomposition_temperature"
+      ],
+      "weights": {
+        "melting_point": 0.18,
+        "glass_transition": 0.016666666666666666,
+        "decomposition_temperature": 0.18,
+        "toxicity": 0.016666666666666666,
+        "density": 0.016666666666666666,
+        "viscosity": 0.18,
+        "heat_capacity": 0.18,
+        "refractive_index": 0.016666666666666666,
+        "surface_tension": 0.016666666666666666,
+        "thermal_conductivity": 0.18,
+        "co2_solubility": 0.016666666666666666
+      },
+      "output": "runs/application_weighted_1m_v1/fits/heat_transfer/seed_43/weighted_plain",
+      "command": [
+        "python",
+        "-u",
+        "-m",
+        "scripts.application_weighted_1m.train",
+        "--root",
+        "runs/application_weighted_1m_v1",
+        "--job",
+        "heat_transfer/43/weighted_plain"
+      ]
+    },
+    {
+      "id": "heat_transfer/44/uniform_plain",
+      "application": "heat_transfer",
+      "seed": 44,
+      "arm": "uniform_plain",
+      "selection_tasks": [
+        "heat_capacity",
+        "thermal_conductivity",
+        "viscosity",
+        "melting_point",
+        "decomposition_temperature"
+      ],
+      "weights": {
+        "melting_point": 0.09090909090909091,
+        "glass_transition": 0.09090909090909091,
+        "decomposition_temperature": 0.09090909090909091,
+        "toxicity": 0.09090909090909091,
+        "density": 0.09090909090909091,
+        "viscosity": 0.09090909090909091,
+        "heat_capacity": 0.09090909090909091,
+        "refractive_index": 0.09090909090909091,
+        "surface_tension": 0.09090909090909091,
+        "thermal_conductivity": 0.09090909090909091,
+        "co2_solubility": 0.09090909090909091
+      },
+      "output": "runs/application_weighted_1m_v1/fits/heat_transfer/seed_44/uniform_plain",
+      "command": [
+        "python",
+        "-u",
+        "-m",
+        "scripts.application_weighted_1m.train",
+        "--root",
+        "runs/application_weighted_1m_v1",
+        "--job",
+        "heat_transfer/44/uniform_plain"
+      ]
+    },
+    {
+      "id": "heat_transfer/44/weighted_plain",
+      "application": "heat_transfer",
+      "seed": 44,
+      "arm": "weighted_plain",
+      "selection_tasks": [
+        "heat_capacity",
+        "thermal_conductivity",
+        "viscosity",
+        "melting_point",
+        "decomposition_temperature"
+      ],
+      "weights": {
+        "melting_point": 0.18,
+        "glass_transition": 0.016666666666666666,
+        "decomposition_temperature": 0.18,
+        "toxicity": 0.016666666666666666,
+        "density": 0.016666666666666666,
+        "viscosity": 0.18,
+        "heat_capacity": 0.18,
+        "refractive_index": 0.016666666666666666,
+        "surface_tension": 0.016666666666666666,
+        "thermal_conductivity": 0.18,
+        "co2_solubility": 0.016666666666666666
+      },
+      "output": "runs/application_weighted_1m_v1/fits/heat_transfer/seed_44/weighted_plain",
+      "command": [
+        "python",
+        "-u",
+        "-m",
+        "scripts.application_weighted_1m.train",
+        "--root",
+        "runs/application_weighted_1m_v1",
+        "--job",
+        "heat_transfer/44/weighted_plain"
+      ]
+    },
+    {
+      "id": "heat_transfer/45/uniform_plain",
+      "application": "heat_transfer",
+      "seed": 45,
+      "arm": "uniform_plain",
+      "selection_tasks": [
+        "heat_capacity",
+        "thermal_conductivity",
+        "viscosity",
+        "melting_point",
+        "decomposition_temperature"
+      ],
+      "weights": {
+        "melting_point": 0.09090909090909091,
+        "glass_transition": 0.09090909090909091,
+        "decomposition_temperature": 0.09090909090909091,
+        "toxicity": 0.09090909090909091,
+        "density": 0.09090909090909091,
+        "viscosity": 0.09090909090909091,
+        "heat_capacity": 0.09090909090909091,
+        "refractive_index": 0.09090909090909091,
+        "surface_tension": 0.09090909090909091,
+        "thermal_conductivity": 0.09090909090909091,
+        "co2_solubility": 0.09090909090909091
+      },
+      "output": "runs/application_weighted_1m_v1/fits/heat_transfer/seed_45/uniform_plain",
+      "command": [
+        "python",
+        "-u",
+        "-m",
+        "scripts.application_weighted_1m.train",
+        "--root",
+        "runs/application_weighted_1m_v1",
+        "--job",
+        "heat_transfer/45/uniform_plain"
+      ]
+    },
+    {
+      "id": "heat_transfer/45/weighted_plain",
+      "application": "heat_transfer",
+      "seed": 45,
+      "arm": "weighted_plain",
+      "selection_tasks": [
+        "heat_capacity",
+        "thermal_conductivity",
+        "viscosity",
+        "melting_point",
+        "decomposition_temperature"
+      ],
+      "weights": {
+        "melting_point": 0.18,
+        "glass_transition": 0.016666666666666666,
+        "decomposition_temperature": 0.18,
+        "toxicity": 0.016666666666666666,
+        "density": 0.016666666666666666,
+        "viscosity": 0.18,
+        "heat_capacity": 0.18,
+        "refractive_index": 0.016666666666666666,
+        "surface_tension": 0.016666666666666666,
+        "thermal_conductivity": 0.18,
+        "co2_solubility": 0.016666666666666666
+      },
+      "output": "runs/application_weighted_1m_v1/fits/heat_transfer/seed_45/weighted_plain",
+      "command": [
+        "python",
+        "-u",
+        "-m",
+        "scripts.application_weighted_1m.train",
+        "--root",
+        "runs/application_weighted_1m_v1",
+        "--job",
+        "heat_transfer/45/weighted_plain"
+      ]
+    },
+    {
+      "id": "heat_transfer/46/uniform_plain",
+      "application": "heat_transfer",
+      "seed": 46,
+      "arm": "uniform_plain",
+      "selection_tasks": [
+        "heat_capacity",
+        "thermal_conductivity",
+        "viscosity",
+        "melting_point",
+        "decomposition_temperature"
+      ],
+      "weights": {
+        "melting_point": 0.09090909090909091,
+        "glass_transition": 0.09090909090909091,
+        "decomposition_temperature": 0.09090909090909091,
+        "toxicity": 0.09090909090909091,
+        "density": 0.09090909090909091,
+        "viscosity": 0.09090909090909091,
+        "heat_capacity": 0.09090909090909091,
+        "refractive_index": 0.09090909090909091,
+        "surface_tension": 0.09090909090909091,
+        "thermal_conductivity": 0.09090909090909091,
+        "co2_solubility": 0.09090909090909091
+      },
+      "output": "runs/application_weighted_1m_v1/fits/heat_transfer/seed_46/uniform_plain",
+      "command": [
+        "python",
+        "-u",
+        "-m",
+        "scripts.application_weighted_1m.train",
+        "--root",
+        "runs/application_weighted_1m_v1",
+        "--job",
+        "heat_transfer/46/uniform_plain"
+      ]
+    },
+    {
+      "id": "heat_transfer/46/weighted_plain",
+      "application": "heat_transfer",
+      "seed": 46,
+      "arm": "weighted_plain",
+      "selection_tasks": [
+        "heat_capacity",
+        "thermal_conductivity",
+        "viscosity",
+        "melting_point",
+        "decomposition_temperature"
+      ],
+      "weights": {
+        "melting_point": 0.18,
+        "glass_transition": 0.016666666666666666,
+        "decomposition_temperature": 0.18,
+        "toxicity": 0.016666666666666666,
+        "density": 0.016666666666666666,
+        "viscosity": 0.18,
+        "heat_capacity": 0.18,
+        "refractive_index": 0.016666666666666666,
+        "surface_tension": 0.016666666666666666,
+        "thermal_conductivity": 0.18,
+        "co2_solubility": 0.016666666666666666
+      },
+      "output": "runs/application_weighted_1m_v1/fits/heat_transfer/seed_46/weighted_plain",
+      "command": [
+        "python",
+        "-u",
+        "-m",
+        "scripts.application_weighted_1m.train",
+        "--root",
+        "runs/application_weighted_1m_v1",
+        "--job",
+        "heat_transfer/46/weighted_plain"
+      ]
+    },
+    {
+      "id": "co2_absorbent/42/uniform_plain",
+      "application": "co2_absorbent",
+      "seed": 42,
+      "arm": "uniform_plain",
+      "selection_tasks": [
+        "co2_solubility",
+        "viscosity",
+        "melting_point"
+      ],
+      "weights": {
+        "melting_point": 0.09090909090909091,
+        "glass_transition": 0.09090909090909091,
+        "decomposition_temperature": 0.09090909090909091,
+        "toxicity": 0.09090909090909091,
+        "density": 0.09090909090909091,
+        "viscosity": 0.09090909090909091,
+        "heat_capacity": 0.09090909090909091,
+        "refractive_index": 0.09090909090909091,
+        "surface_tension": 0.09090909090909091,
+        "thermal_conductivity": 0.09090909090909091,
+        "co2_solubility": 0.09090909090909091
+      },
+      "output": "runs/application_weighted_1m_v1/fits/co2_absorbent/seed_42/uniform_plain",
+      "command": [
+        "python",
+        "-u",
+        "-m",
+        "scripts.application_weighted_1m.train",
+        "--root",
+        "runs/application_weighted_1m_v1",
+        "--job",
+        "co2_absorbent/42/uniform_plain"
+      ]
+    },
+    {
+      "id": "co2_absorbent/42/weighted_plain",
+      "application": "co2_absorbent",
+      "seed": 42,
+      "arm": "weighted_plain",
+      "selection_tasks": [
+        "co2_solubility",
+        "viscosity",
+        "melting_point"
+      ],
+      "weights": {
+        "melting_point": 0.3,
+        "glass_transition": 0.0125,
+        "decomposition_temperature": 0.0125,
+        "toxicity": 0.0125,
+        "density": 0.0125,
+        "viscosity": 0.3,
+        "heat_capacity": 0.0125,
+        "refractive_index": 0.0125,
+        "surface_tension": 0.0125,
+        "thermal_conductivity": 0.0125,
+        "co2_solubility": 0.3
+      },
+      "output": "runs/application_weighted_1m_v1/fits/co2_absorbent/seed_42/weighted_plain",
+      "command": [
+        "python",
+        "-u",
+        "-m",
+        "scripts.application_weighted_1m.train",
+        "--root",
+        "runs/application_weighted_1m_v1",
+        "--job",
+        "co2_absorbent/42/weighted_plain"
+      ]
+    },
+    {
+      "id": "co2_absorbent/43/uniform_plain",
+      "application": "co2_absorbent",
+      "seed": 43,
+      "arm": "uniform_plain",
+      "selection_tasks": [
+        "co2_solubility",
+        "viscosity",
+        "melting_point"
+      ],
+      "weights": {
+        "melting_point": 0.09090909090909091,
+        "glass_transition": 0.09090909090909091,
+        "decomposition_temperature": 0.09090909090909091,
+        "toxicity": 0.09090909090909091,
+        "density": 0.09090909090909091,
+        "viscosity": 0.09090909090909091,
+        "heat_capacity": 0.09090909090909091,
+        "refractive_index": 0.09090909090909091,
+        "surface_tension": 0.09090909090909091,
+        "thermal_conductivity": 0.09090909090909091,
+        "co2_solubility": 0.09090909090909091
+      },
+      "output": "runs/application_weighted_1m_v1/fits/co2_absorbent/seed_43/uniform_plain",
+      "command": [
+        "python",
+        "-u",
+        "-m",
+        "scripts.application_weighted_1m.train",
+        "--root",
+        "runs/application_weighted_1m_v1",
+        "--job",
+        "co2_absorbent/43/uniform_plain"
+      ]
+    },
+    {
+      "id": "co2_absorbent/43/weighted_plain",
+      "application": "co2_absorbent",
+      "seed": 43,
+      "arm": "weighted_plain",
+      "selection_tasks": [
+        "co2_solubility",
+        "viscosity",
+        "melting_point"
+      ],
+      "weights": {
+        "melting_point": 0.3,
+        "glass_transition": 0.0125,
+        "decomposition_temperature": 0.0125,
+        "toxicity": 0.0125,
+        "density": 0.0125,
+        "viscosity": 0.3,
+        "heat_capacity": 0.0125,
+        "refractive_index": 0.0125,
+        "surface_tension": 0.0125,
+        "thermal_conductivity": 0.0125,
+        "co2_solubility": 0.3
+      },
+      "output": "runs/application_weighted_1m_v1/fits/co2_absorbent/seed_43/weighted_plain",
+      "command": [
+        "python",
+        "-u",
+        "-m",
+        "scripts.application_weighted_1m.train",
+        "--root",
+        "runs/application_weighted_1m_v1",
+        "--job",
+        "co2_absorbent/43/weighted_plain"
+      ]
+    },
+    {
+      "id": "co2_absorbent/44/uniform_plain",
+      "application": "co2_absorbent",
+      "seed": 44,
+      "arm": "uniform_plain",
+      "selection_tasks": [
+        "co2_solubility",
+        "viscosity",
+        "melting_point"
+      ],
+      "weights": {
+        "melting_point": 0.09090909090909091,
+        "glass_transition": 0.09090909090909091,
+        "decomposition_temperature": 0.09090909090909091,
+        "toxicity": 0.09090909090909091,
+        "density": 0.09090909090909091,
+        "viscosity": 0.09090909090909091,
+        "heat_capacity": 0.09090909090909091,
+        "refractive_index": 0.09090909090909091,
+        "surface_tension": 0.09090909090909091,
+        "thermal_conductivity": 0.09090909090909091,
+        "co2_solubility": 0.09090909090909091
+      },
+      "output": "runs/application_weighted_1m_v1/fits/co2_absorbent/seed_44/uniform_plain",
+      "command": [
+        "python",
+        "-u",
+        "-m",
+        "scripts.application_weighted_1m.train",
+        "--root",
+        "runs/application_weighted_1m_v1",
+        "--job",
+        "co2_absorbent/44/uniform_plain"
+      ]
+    },
+    {
+      "id": "co2_absorbent/44/weighted_plain",
+      "application": "co2_absorbent",
+      "seed": 44,
+      "arm": "weighted_plain",
+      "selection_tasks": [
+        "co2_solubility",
+        "viscosity",
+        "melting_point"
+      ],
+      "weights": {
+        "melting_point": 0.3,
+        "glass_transition": 0.0125,
+        "decomposition_temperature": 0.0125,
+        "toxicity": 0.0125,
+        "density": 0.0125,
+        "viscosity": 0.3,
+        "heat_capacity": 0.0125,
+        "refractive_index": 0.0125,
+        "surface_tension": 0.0125,
+        "thermal_conductivity": 0.0125,
+        "co2_solubility": 0.3
+      },
+      "output": "runs/application_weighted_1m_v1/fits/co2_absorbent/seed_44/weighted_plain",
+      "command": [
+        "python",
+        "-u",
+        "-m",
+        "scripts.application_weighted_1m.train",
+        "--root",
+        "runs/application_weighted_1m_v1",
+        "--job",
+        "co2_absorbent/44/weighted_plain"
+      ]
+    },
+    {
+      "id": "co2_absorbent/45/uniform_plain",
+      "application": "co2_absorbent",
+      "seed": 45,
+      "arm": "uniform_plain",
+      "selection_tasks": [
+        "co2_solubility",
+        "viscosity",
+        "melting_point"
+      ],
+      "weights": {
+        "melting_point": 0.09090909090909091,
+        "glass_transition": 0.09090909090909091,
+        "decomposition_temperature": 0.09090909090909091,
+        "toxicity": 0.09090909090909091,
+        "density": 0.09090909090909091,
+        "viscosity": 0.09090909090909091,
+        "heat_capacity": 0.09090909090909091,
+        "refractive_index": 0.09090909090909091,
+        "surface_tension": 0.09090909090909091,
+        "thermal_conductivity": 0.09090909090909091,
+        "co2_solubility": 0.09090909090909091
+      },
+      "output": "runs/application_weighted_1m_v1/fits/co2_absorbent/seed_45/uniform_plain",
+      "command": [
+        "python",
+        "-u",
+        "-m",
+        "scripts.application_weighted_1m.train",
+        "--root",
+        "runs/application_weighted_1m_v1",
+        "--job",
+        "co2_absorbent/45/uniform_plain"
+      ]
+    },
+    {
+      "id": "co2_absorbent/45/weighted_plain",
+      "application": "co2_absorbent",
+      "seed": 45,
+      "arm": "weighted_plain",
+      "selection_tasks": [
+        "co2_solubility",
+        "viscosity",
+        "melting_point"
+      ],
+      "weights": {
+        "melting_point": 0.3,
+        "glass_transition": 0.0125,
+        "decomposition_temperature": 0.0125,
+        "toxicity": 0.0125,
+        "density": 0.0125,
+        "viscosity": 0.3,
+        "heat_capacity": 0.0125,
+        "refractive_index": 0.0125,
+        "surface_tension": 0.0125,
+        "thermal_conductivity": 0.0125,
+        "co2_solubility": 0.3
+      },
+      "output": "runs/application_weighted_1m_v1/fits/co2_absorbent/seed_45/weighted_plain",
+      "command": [
+        "python",
+        "-u",
+        "-m",
+        "scripts.application_weighted_1m.train",
+        "--root",
+        "runs/application_weighted_1m_v1",
+        "--job",
+        "co2_absorbent/45/weighted_plain"
+      ]
+    },
+    {
+      "id": "co2_absorbent/46/uniform_plain",
+      "application": "co2_absorbent",
+      "seed": 46,
+      "arm": "uniform_plain",
+      "selection_tasks": [
+        "co2_solubility",
+        "viscosity",
+        "melting_point"
+      ],
+      "weights": {
+        "melting_point": 0.09090909090909091,
+        "glass_transition": 0.09090909090909091,
+        "decomposition_temperature": 0.09090909090909091,
+        "toxicity": 0.09090909090909091,
+        "density": 0.09090909090909091,
+        "viscosity": 0.09090909090909091,
+        "heat_capacity": 0.09090909090909091,
+        "refractive_index": 0.09090909090909091,
+        "surface_tension": 0.09090909090909091,
+        "thermal_conductivity": 0.09090909090909091,
+        "co2_solubility": 0.09090909090909091
+      },
+      "output": "runs/application_weighted_1m_v1/fits/co2_absorbent/seed_46/uniform_plain",
+      "command": [
+        "python",
+        "-u",
+        "-m",
+        "scripts.application_weighted_1m.train",
+        "--root",
+        "runs/application_weighted_1m_v1",
+        "--job",
+        "co2_absorbent/46/uniform_plain"
+      ]
+    },
+    {
+      "id": "co2_absorbent/46/weighted_plain",
+      "application": "co2_absorbent",
+      "seed": 46,
+      "arm": "weighted_plain",
+      "selection_tasks": [
+        "co2_solubility",
+        "viscosity",
+        "melting_point"
+      ],
+      "weights": {
+        "melting_point": 0.3,
+        "glass_transition": 0.0125,
+        "decomposition_temperature": 0.0125,
+        "toxicity": 0.0125,
+        "density": 0.0125,
+        "viscosity": 0.3,
+        "heat_capacity": 0.0125,
+        "refractive_index": 0.0125,
+        "surface_tension": 0.0125,
+        "thermal_conductivity": 0.0125,
+        "co2_solubility": 0.3
+      },
+      "output": "runs/application_weighted_1m_v1/fits/co2_absorbent/seed_46/weighted_plain",
+      "command": [
+        "python",
+        "-u",
+        "-m",
+        "scripts.application_weighted_1m.train",
+        "--root",
+        "runs/application_weighted_1m_v1",
+        "--job",
+        "co2_absorbent/46/weighted_plain"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "id": "42/pretrained_1m/single/equations/melting_point",
+      "output": "runs/pretraining_full_coverage_v1/downstream/melting_point/seed_42/1m",
+      "seed": 42,
+      "tasks": [
+        "melting_point"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "heat_transfer",
+        "co2_absorbent"
+      ],
+      "hashes": {
+        "metrics.json": "a9ac005db89faa2681f64aa49d299d48455848280e9f7518e9a85334790586f1",
+        "best.pt": "cb6e6fb45ca4c2b3da0b59302e7b2953385c5b23e7eac91bf9d279d79cfc3d29",
+        "task_config.json": "2bd8b743afc6c742678dae8ad344b6fe7ef758a12da6d7e91eb5c1d8617c8969",
+        "validation_predictions.csv": "e213b44fce4bfc6fa7d097d0cd13195445230d3d2d5a7c130ba23e997bf2a4c0",
+        "test_predictions.csv": "0a7a3fa88392fbc5ae9e5edf5edcc32aafa96803486f833464b3fdcca7d53545"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "42/pretrained_1m/single/equations/decomposition_temperature",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_42/pretrained_1m/single/equations/decomposition_temperature",
+      "seed": 42,
+      "tasks": [
+        "decomposition_temperature"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "heat_transfer"
+      ],
+      "hashes": {
+        "metrics.json": "f54174ab39cf62cc5d12e90248d67525f44d922c501f062c232516b232d91d14",
+        "best.pt": "08fcd8fb3fb7ed647b94f4b330e105c110d007d6fbdf4861264ab50fa784777e",
+        "task_config.json": "197eda37ff7aaa1f0f6a43ceb037c969e88e6309e1790c1ddadbea927683333d",
+        "validation_predictions.csv": "7cc873092d9b1f0c47bdccbc68509516a06b5a495ee4f64389458fa67e1ada51",
+        "test_predictions.csv": "85260a16f6d39d885c0b53d0fa2047d0082a5c56ae772f099a9c593248653146",
+        "execution.json": "28cd6192200d906bbade5c3fbff8da934c52159151560bd520c1a4c4fdd13339"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "42/pretrained_1m/single/mlp/viscosity",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_42/pretrained_1m/single/mlp/viscosity",
+      "seed": 42,
+      "tasks": [
+        "viscosity"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "heat_transfer",
+        "co2_absorbent"
+      ],
+      "hashes": {
+        "metrics.json": "c125293687e7614f554a545355157b134cf88300997cd29140251ce17f029e3c",
+        "best.pt": "88394b37060caffaad6a392db417511c6ad52b9f7e0c9d0904495a5ffafe814a",
+        "task_config.json": "b763fca2fbd17b48137234d8571dfb9c4d2fa3878df146ba888479a7bfc56534",
+        "validation_predictions.csv": "f1a954f6d4a57a37d2a0fa1c29c2601f7871dfdf31bf581a41383e557a2158fe",
+        "test_predictions.csv": "944e85df788e26ce7514080caf3d74e17451ef2d1703bb13b3c1a38fdf930589",
+        "execution.json": "7b94d5acd6a6db1a09c1bae23bcae50da09a6d538a980433635935285c958cb0"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "42/pretrained_1m/single/mlp/heat_capacity",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_42/pretrained_1m/single/mlp/heat_capacity",
+      "seed": 42,
+      "tasks": [
+        "heat_capacity"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "heat_transfer"
+      ],
+      "hashes": {
+        "metrics.json": "e57d5097ce77432ec746d7edec35892f17bedaf79f976a000b4fbdda29ed8508",
+        "best.pt": "4af93368461fbd87bf3f9fe09be0a5dd5f1c35b67111ba07a1eb920d077d7c46",
+        "task_config.json": "0e2989ed85b60e9277e3211f5cd731d84172291fa2e647bbc085d6a117fa6cb7",
+        "validation_predictions.csv": "37b3cfd52154e1bdaa9d4fd56ea3e2f003980c310b06ae98cfb36b90277e2e41",
+        "test_predictions.csv": "72982828ecf6b8d2cc23ca206c6dd9f22eb7593f545d26695624147ab25adb79",
+        "execution.json": "8316cc48d6eb357a560630dbbbcf157513b7b3939b16c627fab03a993308166c"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "42/pretrained_1m/single/mlp/thermal_conductivity",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_42/pretrained_1m/single/mlp/thermal_conductivity",
+      "seed": 42,
+      "tasks": [
+        "thermal_conductivity"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "heat_transfer"
+      ],
+      "hashes": {
+        "metrics.json": "508026544de91d77ea4faaa2c627873006d2db720f3dab16d1a9f94ea8048e11",
+        "best.pt": "0b232685e0d1b214310b773fa3caf8e7bd4aa10c84632b515ecdc00a51bb0490",
+        "task_config.json": "ffc4da281a20e782bf7d33f88833d7a3a09236fba00a69d9a9cf0f9f48c9b569",
+        "validation_predictions.csv": "e93186fad2a36303062f4b1a5eb50e1d7e127a78ccbebb448e44aa945d2cc18e",
+        "test_predictions.csv": "0c8c672586bb5aab57924ec08549f43ede1078fd9bf15851dcee227e01f469c6",
+        "execution.json": "cc49b9dcd923c1cdd80e918c368541bd64d1f75ce0929babea9874e16362dd6d"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "42/pretrained_1m/single/mlp/co2_solubility",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_42/pretrained_1m/single/mlp/co2_solubility",
+      "seed": 42,
+      "tasks": [
+        "co2_solubility"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "co2_absorbent"
+      ],
+      "hashes": {
+        "metrics.json": "5d816527d51fa457e783f734db6412511c036a56f52ba5e89f88179f6fcd2d03",
+        "best.pt": "6774ff68434a9524a722aa834c5cb2e344e0b7ff8f166e8fd890f662c37decb3",
+        "task_config.json": "b2d317927c9c362b8060763ca2bee28e18c3b5c254bd58e16374d212df4fe191",
+        "validation_predictions.csv": "7f865bdf1e2325c3e92e4682d29c6d58f516697f2c7dc758c42ad4bf53552aa7",
+        "test_predictions.csv": "08da246bb7d47d294295e4cba4bae13dc0ef9fc7d2aa6aa5e5a685d67ee07251",
+        "execution.json": "553fd4b25e4a08c8dc1effd9d71bf55154cf7e32a237638795f2dacf5f3a28e9"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "42/pretrained_1m/multi/mlp",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_42/pretrained_1m/multi/mlp",
+      "seed": 42,
+      "tasks": [
+        "melting_point",
+        "glass_transition",
+        "decomposition_temperature",
+        "toxicity",
+        "density",
+        "viscosity",
+        "heat_capacity",
+        "refractive_index",
+        "surface_tension",
+        "thermal_conductivity",
+        "co2_solubility"
+      ],
+      "arm": "historical_multi",
+      "applications": [
+        "heat_transfer",
+        "co2_absorbent"
+      ],
+      "hashes": {
+        "metrics.json": "23b6cdf176c9d81cdee4339202a53a682ca33ae6ef3ea05987be1a4fcc8edb36",
+        "best.pt": "e3581ec45071e491dc0c884dbd4ef455abeb6a39bb88daadb909a64d4fc65004",
+        "task_config.json": "bfec62b00e3e7fd42ac926b0268cc8c8f5aa3dcb8bbbee4c1271e10b24bfdc63",
+        "validation_predictions.csv": "81065d0e3484f0f2663fa6855bf92c13ab76671adf54e27e0b03e88a77bfd34b",
+        "test_predictions.csv": "4ffeeeee80156e97eaa0362ffdad11c22ca9d59ab578b8d67ce0ddfc1b12b6fa",
+        "execution.json": "7b68ffee5c70c8cc28571dd192d354d4637efb10fb91f9eee5cf6d22ea263efc"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "43/pretrained_1m/single/equations/melting_point",
+      "output": "runs/pretraining_full_coverage_v1/downstream/melting_point/seed_43/1m",
+      "seed": 43,
+      "tasks": [
+        "melting_point"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "heat_transfer",
+        "co2_absorbent"
+      ],
+      "hashes": {
+        "metrics.json": "5467ff4ed0e7e8bb1b553abfc1f0995bde98aacc9844cc169d66319cd87599fd",
+        "best.pt": "86e7398d5be93ef2c72a26313aa5781081c155cd32d7ddb27022c196d3f72c30",
+        "task_config.json": "2bd8b743afc6c742678dae8ad344b6fe7ef758a12da6d7e91eb5c1d8617c8969",
+        "validation_predictions.csv": "4cabc18ee88dcf860c8769f912dca763255c88dc27bf954b5bf91164d2e2bf5e",
+        "test_predictions.csv": "ce0eaf5a9346db9ea679993b60ad2841fdc1cb37ea95f4b43956c2421226eff0"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "43/pretrained_1m/single/equations/decomposition_temperature",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_43/pretrained_1m/single/equations/decomposition_temperature",
+      "seed": 43,
+      "tasks": [
+        "decomposition_temperature"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "heat_transfer"
+      ],
+      "hashes": {
+        "metrics.json": "7d0ba255cce20defd4e4071a953a96c6e5cbd61cca7ad25212f0623d7939f20a",
+        "best.pt": "6035bfece649ab3c917beea10d036d1a10671ab109a30fb6b83ac82f3ab3f3b8",
+        "task_config.json": "197eda37ff7aaa1f0f6a43ceb037c969e88e6309e1790c1ddadbea927683333d",
+        "validation_predictions.csv": "0388efbd04146bccd45977f61669cc9146649dc5f8b4bff0ef7e7c2577c349c3",
+        "test_predictions.csv": "7d750526cc7800a4f0eca8dd35eb94a153044a9c148b736a65499e487209ea38",
+        "execution.json": "64b24cf0b4792e9d3643dedb3027d73b7f50a27d97054b5a43ed2d7d24df72e8"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "43/pretrained_1m/single/mlp/viscosity",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_43/pretrained_1m/single/mlp/viscosity",
+      "seed": 43,
+      "tasks": [
+        "viscosity"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "heat_transfer",
+        "co2_absorbent"
+      ],
+      "hashes": {
+        "metrics.json": "f9d103e52180edb0343bed8efd468ab0e5b43cf9cf6dd879e6ca007f118dc5fa",
+        "best.pt": "32d49b58ed69377a2e114474d6cddbf8651dc6ce2a604de514b6c47574ddbc49",
+        "task_config.json": "b763fca2fbd17b48137234d8571dfb9c4d2fa3878df146ba888479a7bfc56534",
+        "validation_predictions.csv": "151aa543fbbd73cef7113383d82546428df34774148ae8eb92c5e67145e35517",
+        "test_predictions.csv": "27c62256328ad0eb827cb8e2204bb440226d7cb723941eafb929a5f62b47cf50",
+        "execution.json": "8c4b378f0d5d4fae7096d4b0a7a50f527c30eebecbd417418499d7484ca676ad"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "43/pretrained_1m/single/mlp/heat_capacity",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_43/pretrained_1m/single/mlp/heat_capacity",
+      "seed": 43,
+      "tasks": [
+        "heat_capacity"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "heat_transfer"
+      ],
+      "hashes": {
+        "metrics.json": "75c798c5ecd42d712f8d74631fcb9d10b3e9f580feaf462b0f670f8069d5ad53",
+        "best.pt": "069cc8ea6d4a1244d61352785ab6daea8dcaf02aad32d376f33154643a041ed4",
+        "task_config.json": "0e2989ed85b60e9277e3211f5cd731d84172291fa2e647bbc085d6a117fa6cb7",
+        "validation_predictions.csv": "47fca77ece5dc96ae0c72e1768dd9f975bb6c40ffd5bc555d10b688cd88fa2ee",
+        "test_predictions.csv": "1a9c92392876d5f67c90951bcabd2c92c4d55d48cf9e310981df5ffa32a55352",
+        "execution.json": "7a78a6c4828bb6110f78758eb376416f54f12dd1c3c599d98c74f55b172442e6"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "43/pretrained_1m/single/mlp/thermal_conductivity",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_43/pretrained_1m/single/mlp/thermal_conductivity",
+      "seed": 43,
+      "tasks": [
+        "thermal_conductivity"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "heat_transfer"
+      ],
+      "hashes": {
+        "metrics.json": "7336d672e473fdf35ab273b3430933ea623768bf652f79cc60ccbb106ae04cab",
+        "best.pt": "4a0d07b3369099d4166ef3a4a40d1229dedb732b8952dffadf904fb7a4b464a9",
+        "task_config.json": "ffc4da281a20e782bf7d33f88833d7a3a09236fba00a69d9a9cf0f9f48c9b569",
+        "validation_predictions.csv": "c72fd19bf89a2dbbcf9203ca2a54f2c1678434cf300deaffea45580c0143a5bf",
+        "test_predictions.csv": "8109e68bb900882cc656fb9e24bb4c890ed14b3ab5756345a0e360cbb3a99595",
+        "execution.json": "f08c8b0288f7fa813d3802f37bbd90b23bcd53728371fc71ddfd288751bd2667"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "43/pretrained_1m/single/mlp/co2_solubility",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_43/pretrained_1m/single/mlp/co2_solubility",
+      "seed": 43,
+      "tasks": [
+        "co2_solubility"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "co2_absorbent"
+      ],
+      "hashes": {
+        "metrics.json": "c46db6c84b2e5c1c117f0aceb8e3fadfeb542a45b6be287660f14f18b78eeaf0",
+        "best.pt": "b5f995c58e7c160b3ee5984c4363619ca9fc7e9a5c64fe3dc1d3247e89da4a94",
+        "task_config.json": "b2d317927c9c362b8060763ca2bee28e18c3b5c254bd58e16374d212df4fe191",
+        "validation_predictions.csv": "b39e138531da47a4bfcf0972e2e64e9fde07d8a6774e39959eceef3fc61e6f59",
+        "test_predictions.csv": "204c2ab5c79b2fa8020588d089dd9de6ddddc11d5885492a4a26555575c6ddd1",
+        "execution.json": "1ad0736a4b249d3e4b587e3b81902ff2844b39397a874aa69eeaad326c69594a"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "43/pretrained_1m/multi/mlp",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_43/pretrained_1m/multi/mlp",
+      "seed": 43,
+      "tasks": [
+        "melting_point",
+        "glass_transition",
+        "decomposition_temperature",
+        "toxicity",
+        "density",
+        "viscosity",
+        "heat_capacity",
+        "refractive_index",
+        "surface_tension",
+        "thermal_conductivity",
+        "co2_solubility"
+      ],
+      "arm": "historical_multi",
+      "applications": [
+        "heat_transfer",
+        "co2_absorbent"
+      ],
+      "hashes": {
+        "metrics.json": "7c71ed1b743568ad0ba232b8aa838b597e671c9723a7c86ae3c99f9b7f950460",
+        "best.pt": "a01d7e1f6b2fb402f38f6ab417baf76058ee83e6b2be8828eaea53059962b744",
+        "task_config.json": "bfec62b00e3e7fd42ac926b0268cc8c8f5aa3dcb8bbbee4c1271e10b24bfdc63",
+        "validation_predictions.csv": "2d1f78bef227e80d82679e564b20516f378d9cc01791e706b637478cb805e616",
+        "test_predictions.csv": "bf929d60f7bef8aff5360266a8af2fc31cf5f5cee89832646a735fb63a29798c",
+        "execution.json": "19c2a1696f57b426b14779864679d3958f46d13b36625024361f8ffc89b5706d"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "44/pretrained_1m/single/equations/melting_point",
+      "output": "runs/pretraining_full_coverage_v1/downstream/melting_point/seed_44/1m",
+      "seed": 44,
+      "tasks": [
+        "melting_point"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "heat_transfer",
+        "co2_absorbent"
+      ],
+      "hashes": {
+        "metrics.json": "e88164cb033f499cc02720830a4a126d613812cf8df689d9381e457b0bfdfa59",
+        "best.pt": "b9b9771cbf7e516ea06167a6364b673b236596f1128a64510c3a7114939f90e0",
+        "task_config.json": "2bd8b743afc6c742678dae8ad344b6fe7ef758a12da6d7e91eb5c1d8617c8969",
+        "validation_predictions.csv": "6d25f377893029e095d6df1ee87d213b27f00475ec975682075960852c6e1ba1",
+        "test_predictions.csv": "c1369f4b32bd69f1a446e24add58de31f2f6f36110ca3a3eefb7234659df18c6"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "44/pretrained_1m/single/equations/decomposition_temperature",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_44/pretrained_1m/single/equations/decomposition_temperature",
+      "seed": 44,
+      "tasks": [
+        "decomposition_temperature"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "heat_transfer"
+      ],
+      "hashes": {
+        "metrics.json": "0b12a278ed0349f5ce4e395a01c21fa290ee85f5c560882def65505c3ffea159",
+        "best.pt": "27db3eafbca5b9417473e58a5f04b17a7a994e2a930caa45f004c94c3a3ed3b5",
+        "task_config.json": "197eda37ff7aaa1f0f6a43ceb037c969e88e6309e1790c1ddadbea927683333d",
+        "validation_predictions.csv": "0a43cc01cc9cacd11159200068f2a2681571d76016abda1d74bc57cc3b635cc6",
+        "test_predictions.csv": "79037ee32f11215ce93cdb4283b5f4c69c69f998326d0d431fd3cc5d9f4f0a30",
+        "execution.json": "ebde358c1a9fbfa2c173da860cab4d32e07962713658b854251ee3db7acea326"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "44/pretrained_1m/single/mlp/viscosity",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_44/pretrained_1m/single/mlp/viscosity",
+      "seed": 44,
+      "tasks": [
+        "viscosity"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "heat_transfer",
+        "co2_absorbent"
+      ],
+      "hashes": {
+        "metrics.json": "54a3e8ef6689f07d16a103972083f3a93db8c2f19c2b25af4bb1b4fe5b48225a",
+        "best.pt": "5a634a1a8618664051cc97730a8f2aff8f5a11b0832a8b75cf9174e697319aec",
+        "task_config.json": "b763fca2fbd17b48137234d8571dfb9c4d2fa3878df146ba888479a7bfc56534",
+        "validation_predictions.csv": "e105251d70e58253cf1e2840fb1cb029a57b89c1a41bbf68a5e1c3f7eb6ea612",
+        "test_predictions.csv": "523d5b83188744b77a9d46f7ee9228be70c4e18cbc017c3a3659d8e5f0c4812a",
+        "execution.json": "36bd0808cfb4a0321de3645c8964823c72c3a05864539c6f66b36d0562762861"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "44/pretrained_1m/single/mlp/heat_capacity",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_44/pretrained_1m/single/mlp/heat_capacity",
+      "seed": 44,
+      "tasks": [
+        "heat_capacity"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "heat_transfer"
+      ],
+      "hashes": {
+        "metrics.json": "58a7c5cb46753fa47672fd7d1b34adf0b9039b571ac268d46f401d0bb503604c",
+        "best.pt": "752357d437173f4f8d9f0fc159674841717fd103d26bf9e93d8eb1a3ae933181",
+        "task_config.json": "0e2989ed85b60e9277e3211f5cd731d84172291fa2e647bbc085d6a117fa6cb7",
+        "validation_predictions.csv": "a097a697bc3d4ab9c0c343b3d8c458ad522cf1a5ac715d2de50b3ec52dee58ea",
+        "test_predictions.csv": "c908fc758b3976a9184de34e2d8f8ae2643687b38b4c120ed90ef8627cdf5b1e",
+        "execution.json": "4eebf66bc431df109dce43e4478048d03545acd9a9b3da966d0bc69426639428"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "44/pretrained_1m/single/mlp/thermal_conductivity",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_44/pretrained_1m/single/mlp/thermal_conductivity",
+      "seed": 44,
+      "tasks": [
+        "thermal_conductivity"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "heat_transfer"
+      ],
+      "hashes": {
+        "metrics.json": "74822d76011d3619378181998c97ec8b5dde8ab479aa5a776fd52d78ff94acfa",
+        "best.pt": "573b241f2e5845603ccd742380b417eb7a73e1d2f5198a3596ba7aca0d97d593",
+        "task_config.json": "ffc4da281a20e782bf7d33f88833d7a3a09236fba00a69d9a9cf0f9f48c9b569",
+        "validation_predictions.csv": "3993dfa3d2fa565988676758061d3a16ce4b273859f321af92b9d4d584bd59d7",
+        "test_predictions.csv": "c601535219c253cfc8efda123c5a0b4b0abbe3576b7e6a673aadab63e822cd3d",
+        "execution.json": "15f3d7186eeb8dc24ef33e626b9358d74bf927654b229f775ac567690bd4c2ed"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "44/pretrained_1m/single/mlp/co2_solubility",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_44/pretrained_1m/single/mlp/co2_solubility",
+      "seed": 44,
+      "tasks": [
+        "co2_solubility"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "co2_absorbent"
+      ],
+      "hashes": {
+        "metrics.json": "a5a11742590d3aa852d30807814cf2b61cb3b3f3a493a41149372df0f98feb54",
+        "best.pt": "116084277b503bae3b05715bbdc8c5b2b254b4f25ab04e8192de726ef0f0500e",
+        "task_config.json": "b2d317927c9c362b8060763ca2bee28e18c3b5c254bd58e16374d212df4fe191",
+        "validation_predictions.csv": "f70bd6acdb27321608aead2f1176effcd024bf7c8ff27e83521b6e7d70218e60",
+        "test_predictions.csv": "4c9020b5d9b893db86ac08f7b3da39a5496db6b8ecf21f4a87048315c2622f3c",
+        "execution.json": "16d333acad4339e417a9174a579fdb18651fece74507f091a298f654b7322758"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "44/pretrained_1m/multi/mlp",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_44/pretrained_1m/multi/mlp",
+      "seed": 44,
+      "tasks": [
+        "melting_point",
+        "glass_transition",
+        "decomposition_temperature",
+        "toxicity",
+        "density",
+        "viscosity",
+        "heat_capacity",
+        "refractive_index",
+        "surface_tension",
+        "thermal_conductivity",
+        "co2_solubility"
+      ],
+      "arm": "historical_multi",
+      "applications": [
+        "heat_transfer",
+        "co2_absorbent"
+      ],
+      "hashes": {
+        "metrics.json": "4ec69457d4d34a75116775840f41564a6dcd0d616b42d16261e5b557cdda2c91",
+        "best.pt": "8c80a736483d6d5ae7512e95c186b1b62c512e9e57ff94a49c857ca29a4763bc",
+        "task_config.json": "bfec62b00e3e7fd42ac926b0268cc8c8f5aa3dcb8bbbee4c1271e10b24bfdc63",
+        "validation_predictions.csv": "f80077cd889e006959c50b2bc3b4b9e2680ce955bd89dc83511f1bed7d60e5a6",
+        "test_predictions.csv": "2b4168356f936ddfdcb63616e19a01ae8595ec5a11d9c0559fdce5cb0019dc6c",
+        "execution.json": "b79c26bec9a8eba462566d58a9d2b7f19fe9c98ec54fc5958cfacd41fbe7f49f"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "45/pretrained_1m/single/equations/melting_point",
+      "output": "runs/pretraining_full_coverage_v1/downstream/melting_point/seed_45/1m",
+      "seed": 45,
+      "tasks": [
+        "melting_point"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "heat_transfer",
+        "co2_absorbent"
+      ],
+      "hashes": {
+        "metrics.json": "d90bfb1a7d7484cc6486e59a21ea14ce58f0377e9bd3e1cd1a07fa5627d04c67",
+        "best.pt": "5b6759a9ff5525eff7cb405820082fdf98744cdc653b852ff1878bc12105a22c",
+        "task_config.json": "2bd8b743afc6c742678dae8ad344b6fe7ef758a12da6d7e91eb5c1d8617c8969",
+        "validation_predictions.csv": "905a5bae15498304152b020b780ea3263b9f4a1aa98948af8c1cf5f2d65bea93",
+        "test_predictions.csv": "677b6831e5427d3c7fbd5f1e82abb4e8875aa05d3374500e6a5a11c1a17f07bb"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "45/pretrained_1m/single/equations/decomposition_temperature",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_45/pretrained_1m/single/equations/decomposition_temperature",
+      "seed": 45,
+      "tasks": [
+        "decomposition_temperature"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "heat_transfer"
+      ],
+      "hashes": {
+        "metrics.json": "ff8afdfa48e889653aba6dd255595adb7105ec5f6496faa752856fd4c8f0d234",
+        "best.pt": "c0c1ef1bd94084f11d980b3cceec34e8a206cc869c579e595c357faa5bcf3f9f",
+        "task_config.json": "197eda37ff7aaa1f0f6a43ceb037c969e88e6309e1790c1ddadbea927683333d",
+        "validation_predictions.csv": "7401675aadb6aa540516896812bdc5a275c1765eb7dde52a71d39c005c35fb4a",
+        "test_predictions.csv": "6016e6652996f8de18ccac77de11cbdfdd48861fbe7380485ca22a291926e6ee",
+        "execution.json": "8a7200c74c013726f22ebda9c928ef371044c87dac96153c65a1d65e256d0f71"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "45/pretrained_1m/single/mlp/viscosity",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_45/pretrained_1m/single/mlp/viscosity",
+      "seed": 45,
+      "tasks": [
+        "viscosity"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "heat_transfer",
+        "co2_absorbent"
+      ],
+      "hashes": {
+        "metrics.json": "930cec3d7e1d853e8e06ec8549378fa360ca4f252ca59d82c182d4e1fed3d2a0",
+        "best.pt": "fd100e2c6f4af99bd3a72120a0308477ec352b531db74f77ad3fd0ad3e0f8981",
+        "task_config.json": "b763fca2fbd17b48137234d8571dfb9c4d2fa3878df146ba888479a7bfc56534",
+        "validation_predictions.csv": "ae94106c9abd8bc1dd7d9ed8d95a456a9d8b66ce07475166001c63241e6f412a",
+        "test_predictions.csv": "5159181a477bd25d5de70a6db4679d832d4da2a35e046835d9bc11b8b9580d44",
+        "execution.json": "79d2d0149bb22a9fde1414665581465691f50d1802b7aa47036cc073453888bc"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "45/pretrained_1m/single/mlp/heat_capacity",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_45/pretrained_1m/single/mlp/heat_capacity",
+      "seed": 45,
+      "tasks": [
+        "heat_capacity"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "heat_transfer"
+      ],
+      "hashes": {
+        "metrics.json": "d10567b2e5de3eb76c1dff4fdfc4233e07beb8afa76bea68ba99ca25a7381789",
+        "best.pt": "48921bcd41a3215ed9f53a636a853868e9cdde8f14750d3578a3ef2576ca006e",
+        "task_config.json": "0e2989ed85b60e9277e3211f5cd731d84172291fa2e647bbc085d6a117fa6cb7",
+        "validation_predictions.csv": "9a8417ae17398dc4acf8bb26ebd7fd036ab4ce090c55becb9251c1a72d852171",
+        "test_predictions.csv": "b2451788cfe39ddb5b0aeb5f81cca9554070c9f42e49dddf0918b005803c40cd",
+        "execution.json": "a0546577f9ae27a4dafa274aaf7b0a8950e4e7329afd8ea8784be8bd05190e80"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "45/pretrained_1m/single/mlp/thermal_conductivity",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_45/pretrained_1m/single/mlp/thermal_conductivity",
+      "seed": 45,
+      "tasks": [
+        "thermal_conductivity"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "heat_transfer"
+      ],
+      "hashes": {
+        "metrics.json": "50164622901cd15ff3066e7579fb9aecd65bc750eee45b2c35fbbbe3c1e1506e",
+        "best.pt": "881f2a3b013544c98ccd8d2e6dba38a0f278a4ab99d556da5136e899b62ce896",
+        "task_config.json": "ffc4da281a20e782bf7d33f88833d7a3a09236fba00a69d9a9cf0f9f48c9b569",
+        "validation_predictions.csv": "c00f4829c0f60174da2a13a511eab8bbe2c7de31f9684df92af7c5c3db5c6382",
+        "test_predictions.csv": "4248fe64bffed3e2d7ab53e1a74d496d51ce5d6438a6a4dedcd609531ad3621c",
+        "execution.json": "b42fc7c5b4a4dad0b1d566a8fe1bb5a510b4b8055325c4c4de0a7bbca71e547e"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "45/pretrained_1m/single/mlp/co2_solubility",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_45/pretrained_1m/single/mlp/co2_solubility",
+      "seed": 45,
+      "tasks": [
+        "co2_solubility"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "co2_absorbent"
+      ],
+      "hashes": {
+        "metrics.json": "d4c3949c58f6458a0ee94f8270b4706cc03a42974e6a19f8129c5a4c5811e0e9",
+        "best.pt": "9f45df67c5bfa15a3f6abd983a7e12ede2f0f6cbaab03f023cd561e0b98587ad",
+        "task_config.json": "b2d317927c9c362b8060763ca2bee28e18c3b5c254bd58e16374d212df4fe191",
+        "validation_predictions.csv": "ebc4e9e81c858b1276a78d53b9e6a01b877d79b45870607da357a3792895bfc3",
+        "test_predictions.csv": "6b24a5ec1ff56d6ca1cf8daf3c3043d8f3dd7d9a48e50b139b962e6624cf86cf",
+        "execution.json": "90682a153f30fe639e3f8671c22e65b756adca1276faabb4125ef0a8766925c0"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "45/pretrained_1m/multi/mlp",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_45/pretrained_1m/multi/mlp",
+      "seed": 45,
+      "tasks": [
+        "melting_point",
+        "glass_transition",
+        "decomposition_temperature",
+        "toxicity",
+        "density",
+        "viscosity",
+        "heat_capacity",
+        "refractive_index",
+        "surface_tension",
+        "thermal_conductivity",
+        "co2_solubility"
+      ],
+      "arm": "historical_multi",
+      "applications": [
+        "heat_transfer",
+        "co2_absorbent"
+      ],
+      "hashes": {
+        "metrics.json": "2ca1f53d6870869898f6af1b1a8b4fa0db61bc97f4c935d408becc8294424c7b",
+        "best.pt": "ab81f133318030afda4b2e8b43d9a778022e631da2dd638f5ac08a88a158e045",
+        "task_config.json": "bfec62b00e3e7fd42ac926b0268cc8c8f5aa3dcb8bbbee4c1271e10b24bfdc63",
+        "validation_predictions.csv": "88430115371d19eca3b7ca3c949366525d26dc49252f76e656d73c33af423b6a",
+        "test_predictions.csv": "d22739507b4fca6fdfdaf60299a157b33265af7c8d9a9419d731b1c6f8ae6c2a",
+        "execution.json": "0dd30ae65340a48e5b49a5f0a29cff4f56eeb818f97d4d603f00204b90c48019"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "46/pretrained_1m/single/equations/melting_point",
+      "output": "runs/pretraining_full_coverage_v1/downstream/melting_point/seed_46/1m",
+      "seed": 46,
+      "tasks": [
+        "melting_point"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "heat_transfer",
+        "co2_absorbent"
+      ],
+      "hashes": {
+        "metrics.json": "7d64a1b277f5aeedd573abde0b3a7a99dc69d359d2bd91e3d2b6919c7e229035",
+        "best.pt": "64edd0f1f921846dfbe0e7639903d63f8ac49eae4e69b3d9177deb8e1e8a9feb",
+        "task_config.json": "2bd8b743afc6c742678dae8ad344b6fe7ef758a12da6d7e91eb5c1d8617c8969",
+        "validation_predictions.csv": "691960b67e41c3467bf1c560b0b143f9cff5148bd9d7a51d88fd0cc182b7c160",
+        "test_predictions.csv": "ab65b8e7b35b9935c874b98f652e68cf360cd7227d326d8e010a90eb87cc75e2"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "46/pretrained_1m/single/equations/decomposition_temperature",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_46/pretrained_1m/single/equations/decomposition_temperature",
+      "seed": 46,
+      "tasks": [
+        "decomposition_temperature"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "heat_transfer"
+      ],
+      "hashes": {
+        "metrics.json": "96a9615f02ddc2dd3377db284bbcd7e9430420d1d19a64feaba6335ea4820298",
+        "best.pt": "db2615e600d57ac576aa6364b5fdf16096cabbcd0b578099cdb5d8cc2152dbf0",
+        "task_config.json": "197eda37ff7aaa1f0f6a43ceb037c969e88e6309e1790c1ddadbea927683333d",
+        "validation_predictions.csv": "3f73174cddaa6f3f13619f181158650c486b6b26c8c12ce0e7217f3aabbbf271",
+        "test_predictions.csv": "0f953945e51e626e36bf6e04c10c6186f7a6eb329d462b380d6ce228bb7fda5b",
+        "execution.json": "60bd7861d8ccb7eb199c26fc46e7664069168228159e2c190e67bd0ab68e4efc"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "46/pretrained_1m/single/mlp/viscosity",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_46/pretrained_1m/single/mlp/viscosity",
+      "seed": 46,
+      "tasks": [
+        "viscosity"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "heat_transfer",
+        "co2_absorbent"
+      ],
+      "hashes": {
+        "metrics.json": "f53884e26cd38d4e4cbadb137dc2b688d479f21ad6d1393bc8760fa8444b1432",
+        "best.pt": "2d50f9ad56b71a3934cbf5f912c133d68603ce91f35f26c476e6a3d1df073ed2",
+        "task_config.json": "b763fca2fbd17b48137234d8571dfb9c4d2fa3878df146ba888479a7bfc56534",
+        "validation_predictions.csv": "969f6034cadf93c867dfc964cbc67dd8149331331ed6873fd9fdc6a4a9532499",
+        "test_predictions.csv": "d527b2674432ca74d26dc8a8b0072188317b6934e4fda7d7675ee9116ff6213c",
+        "execution.json": "1c3395ced29b76d98e11e42cef836d3cd30be4cdad4db62404c0329f3a361d80"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "46/pretrained_1m/single/mlp/heat_capacity",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_46/pretrained_1m/single/mlp/heat_capacity",
+      "seed": 46,
+      "tasks": [
+        "heat_capacity"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "heat_transfer"
+      ],
+      "hashes": {
+        "metrics.json": "be3545afda5b47e392659019cd46aa319c48c733ca926a0eedcead4fc6200dfc",
+        "best.pt": "bfe8459dcaf62691c15aa976f8c6a72959de7511233ab0dfd1da09605bafc46d",
+        "task_config.json": "0e2989ed85b60e9277e3211f5cd731d84172291fa2e647bbc085d6a117fa6cb7",
+        "validation_predictions.csv": "b2557040cad78c74ee9b8d4cbacac6e4a8447e94457cef1d5a7c58ae58ef7841",
+        "test_predictions.csv": "288b8d3356084ebb803bacc175960e92d047049c48ac9e1775c13356f3e08a09",
+        "execution.json": "ad29dbba995697142d90f3746acb1f8d921be76d8ae45127866b43031b2bed3c"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "46/pretrained_1m/single/mlp/thermal_conductivity",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_46/pretrained_1m/single/mlp/thermal_conductivity",
+      "seed": 46,
+      "tasks": [
+        "thermal_conductivity"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "heat_transfer"
+      ],
+      "hashes": {
+        "metrics.json": "f95dac53ece8068a2985277d5f29982b50107d128eaabf59f937dc6844d2b02a",
+        "best.pt": "87326894be0dc21f2729e53fef1c5fb9b52b164b88dc132287fa8cc9d91690d3",
+        "task_config.json": "ffc4da281a20e782bf7d33f88833d7a3a09236fba00a69d9a9cf0f9f48c9b569",
+        "validation_predictions.csv": "a67cdd2db09f04d8272186c48f6eeac260e0561cf18b3904d784e4397b65b126",
+        "test_predictions.csv": "843d345d74f2c66370a70ec12dfa5c4a67770fd89e76e849d52cde930a2ddb8d",
+        "execution.json": "8fe110281a46937815fe9cb3d51578862adeceebe449b72203b44acff2832a24"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "46/pretrained_1m/single/mlp/co2_solubility",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_46/pretrained_1m/single/mlp/co2_solubility",
+      "seed": 46,
+      "tasks": [
+        "co2_solubility"
+      ],
+      "arm": "single_task",
+      "applications": [
+        "co2_absorbent"
+      ],
+      "hashes": {
+        "metrics.json": "add1944d556fd7006052bb3961989c4708b589271b65512287cbaa05ea327eb4",
+        "best.pt": "3ca41a435e1e6c07905c3ae3e4349918772e9023461931441534a9dad42e5f21",
+        "task_config.json": "b2d317927c9c362b8060763ca2bee28e18c3b5c254bd58e16374d212df4fe191",
+        "validation_predictions.csv": "2f082ac7690f26240e330e32d904de5259e96bedc9f7fd55fc91be000c7bb2d5",
+        "test_predictions.csv": "b29d68d3894c8419f7a9790580575e0ffeca9d686cf6ceef290dcbee0a263e1c",
+        "execution.json": "dfa2a6b6a4ab3be513d4fa6dcb5d2bf0fe83f7d467f0d4c860f51beb4ce27999"
+      },
+      "epoch_cap": 100
+    },
+    {
+      "id": "46/pretrained_1m/multi/mlp",
+      "output": "runs/multitask_heads_1m_v1/fits/seed_46/pretrained_1m/multi/mlp",
+      "seed": 46,
+      "tasks": [
+        "melting_point",
+        "glass_transition",
+        "decomposition_temperature",
+        "toxicity",
+        "density",
+        "viscosity",
+        "heat_capacity",
+        "refractive_index",
+        "surface_tension",
+        "thermal_conductivity",
+        "co2_solubility"
+      ],
+      "arm": "historical_multi",
+      "applications": [
+        "heat_transfer",
+        "co2_absorbent"
+      ],
+      "hashes": {
+        "metrics.json": "ebab326ee18c1584b9943e12245ae2b396d7b3e443894bea435e5d74faf32885",
+        "best.pt": "1dcc873a4c3a921aee192f9b14c63de2ad141f30b9bc0562f2f1ff4cf4b05242",
+        "task_config.json": "bfec62b00e3e7fd42ac926b0268cc8c8f5aa3dcb8bbbee4c1271e10b24bfdc63",
+        "validation_predictions.csv": "8961645b48df5d942a90572adebbefcded534a76912861cb32dcd875bceeddbb",
+        "test_predictions.csv": "4b52447e3881fa7a57f09265bde38e82dc6020aefddc1ede204bdb23dc4d3631",
+        "execution.json": "1c6cbea8db28d17f628506e818f953ab94c0a19d68324edc86ecae22bd497c3c"
+      },
+      "epoch_cap": 100
+    }
+  ],
+  "settings": {
+    "hidden": 64,
+    "layers": 3,
+    "heads": 4,
+    "cross_ion": true,
+    "head_mode": "mlp",
+    "epochs": 200,
+    "steps_per_epoch": 100,
+    "per_task_batch": 8,
+    "lr": 0.0005,
+    "weight_decay": 0.0001,
+    "patience": 15,
+    "gradient_clip": 5.0,
+    "threads": 4,
+    "device": "cuda",
+    "limit_per_task": 0,
+    "task_schema": "ablation_v1"
+  },
+  "inputs": {
+    "data/benchmarks/il_v1/observations.csv.gz": "c9c84284f2dfb8d90638fcae90fdf2e469e67b1e6f21105c253976f55763572e",
+    "data/benchmarks/il_v1/manifest.json": "1483197fe0f1b69f08c1140a77ab8f4c8de716578c509dcef56bdb044d6bb9b1",
+    "data/benchmarks/il_v1/structure_splits.csv": "3e56c96532a3a072b39a37c171989b1e4788f6a1e113ee32d924f04893fee7ef",
+    "data/benchmarks/il_v1/task_schema.json": "fd6def0dce556a68e64cceb5a484fc60edf981a1da4c86c5135e5e7ea2f9d26a",
+    "runs/multitask_heads_1m_v1/plan.json": "772d4e60a5c0e535dfde4a331fcf09a6a5451675164267fa392c534f92b65fc8",
+    "runs/pretraining_full_coverage_v1/ssl/1m/final.pt": "3570a55a97fe8cf3ff18f13cacb92d06cd9381e1b50772e3d465db25d8c8e05b",
+    "runs/pretraining_full_coverage_v1/ssl/1m/status.json": "18b3646e636b5d0a50309511786c43ea473fd6e01af0e4cf3ced9f168551202f",
+    "runs/pretraining_full_coverage_v1/ssl/1m/final_sha256.txt": "273f0f44b27c62ec645986a7942b561d56b90b031ed6abbb7fb535b2b6ee2e7c"
+  },
+  "data_sha256": "c9c84284f2dfb8d90638fcae90fdf2e469e67b1e6f21105c253976f55763572e",
+  "checkpoint": "runs/pretraining_full_coverage_v1/ssl/1m/final.pt",
+  "checkpoint_sha256": "3570a55a97fe8cf3ff18f13cacb92d06cd9381e1b50772e3d465db25d8c8e05b",
+  "source_sha256": "d2729702323a2e6cafad6e6ea7364be02c71552af4c8b63d48bb56627aae3c66",
+  "reload_tolerance_training_sd": 5e-06,
+  "selection": "One checkpoint per application/arm/seed, selected by equal-priority-property mean validation standardized MSE. Heat transfer: Cp, conductivity, ln(viscosity), MP, Td. CO2: ln(CO2), ln(viscosity), MP. Choose between fixed arms by five-seed mean of the same validation objective; no test selection.",
+  "protocol": "User-selected 1M three-pass general-molecular pretraining; full encoder fine-tuning and unchanged eleven-head MLP. Fixed 90% total priority loss and 10% auxiliary loss, divided equally within groups. No weight search or new attention. Twenty fits: two applications x uniform/weighted x five seeds, matched initialization and balanced per-task sampling. Frozen complete-IL split and train-only standardization. Prespecified 200-epoch cap and patience 15. Historical 1M references use 100 epochs and other checkpoint criteria; they are contextual controls. The previous 30.2M heat-transfer study included Tg and used a 100-epoch cap, so it is not an initialization-only contrast. CO2/viscosity are trained in ln space; native CO2 and log-viscosity MAEs are displayed separately. Previously inspected test split: exploratory results, not independent chemical generalization.",
+  "inference": "Weighted minus matched uniform: paired whole-IL bootstrap intervals and sign randomization for each application and all eleven properties, under row/equal-IL MAE weighting. BH across 44 tests only after all twenty fits finish. Intervals condition on the fitted models; no inferential selection of weights."
+}

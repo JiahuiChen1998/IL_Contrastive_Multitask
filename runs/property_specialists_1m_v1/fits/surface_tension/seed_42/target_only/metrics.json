@@ -1,0 +1,941 @@
+{
+  "arguments": {
+    "settings": {
+      "hidden": 64,
+      "layers": 3,
+      "heads": 4,
+      "cross_ion": true,
+      "head_mode": "mlp",
+      "epochs": 200,
+      "steps_per_epoch": 100,
+      "per_task_batch": 8,
+      "lr": 0.0005,
+      "weight_decay": 0.0001,
+      "patience": 15,
+      "threads": 4,
+      "gradient_clip": 5.0,
+      "device": "cuda",
+      "limit_per_task": 0,
+      "task_schema": "ablation_v1"
+    },
+    "seed": 42,
+    "arm": "target_only",
+    "target": "surface_tension",
+    "weights": {
+      "melting_point": 0.0,
+      "glass_transition": 0.0,
+      "decomposition_temperature": 0.0,
+      "toxicity": 0.0,
+      "density": 0.0,
+      "viscosity": 0.0,
+      "heat_capacity": 0.0,
+      "refractive_index": 0.0,
+      "surface_tension": 1.0,
+      "thermal_conductivity": 0.0,
+      "co2_solubility": 0.0
+    }
+  },
+  "data_sha256": "c9c84284f2dfb8d90638fcae90fdf2e469e67b1e6f21105c253976f55763572e",
+  "source_sha256": "e72f84f255119c93eec62a21ee70b6a234c6418b9d657cbf3434930c9ce33bba",
+  "subset_run": false,
+  "pretraining": {
+    "path": "runs/pretraining_full_coverage_v1/ssl/1m/final.pt",
+    "sha256": "3570a55a97fe8cf3ff18f13cacb92d06cd9381e1b50772e3d465db25d8c8e05b",
+    "include_cross": false,
+    "loaded_tensors": 87,
+    "pretraining_manifest": {
+      "settings": {
+        "corpus": "data/pretraining/corpus_v1.sqlite",
+        "output": "runs/pretraining_full_coverage_v1/ssl/1m",
+        "structures": 1000000,
+        "passes": 3,
+        "hidden": 64,
+        "layers": 3,
+        "batch_size": 128,
+        "buffer_size": 8192,
+        "validation_structures": 2560,
+        "seed": 42,
+        "mask_rate": 0.15,
+        "temperature": 0.1,
+        "lr": 0.0005,
+        "threads": 4,
+        "device": "cuda",
+        "checkpoint_every": 500,
+        "log_every": 100,
+        "gpu_memory_fraction": 0.7,
+        "rss_limit_gib": 24.0
+      },
+      "corpus": {
+        "arguments": {
+          "downstream": "data/processed/observations.csv.gz",
+          "max_atoms": 160,
+          "max_lines": 0,
+          "output": "data/pretraining/corpus_v1.sqlite",
+          "train": "pre-train strategy/pretrian data/pretrain_train_set.txt",
+          "validation": "pre-train strategy/pretrian data/pretrain_val_set.txt"
+        },
+        "counts": [
+          {
+            "n": 29233728,
+            "pair": 0,
+            "split": "train"
+          },
+          {
+            "n": 980778,
+            "pair": 1,
+            "split": "train"
+          },
+          {
+            "n": 295279,
+            "pair": 0,
+            "split": "validation"
+          },
+          {
+            "n": 9966,
+            "pair": 1,
+            "split": "validation"
+          }
+        ],
+        "downstream_sha256": "c9c84284f2dfb8d90638fcae90fdf2e469e67b1e6f21105c253976f55763572e",
+        "excluded_complete_downstream_structures": 5458,
+        "overlap_policy": "exclude all downstream complete structures; validation wins SSL duplicates; shared ions allowed",
+        "scope": "full",
+        "sources": {
+          "train": {
+            "bytes": 1707744393,
+            "counts": {
+              "accepted_other": 29233728,
+              "accepted_pair": 980778,
+              "downstream_excluded": 1654,
+              "duplicates": 4667,
+              "invalid_or_unsupported": 3,
+              "lines": 30220833,
+              "wildcard": 3
+            },
+            "path": "pre-train strategy/pretrian data/pretrain_train_set.txt",
+            "processed_uncompressed_sha256": "003745414f825a8aec939ea6d3be88f6b0cbb81b92de00d88306054e3211599a"
+          },
+          "validation": {
+            "bytes": 17238927,
+            "counts": {
+              "accepted_other": 295279,
+              "accepted_pair": 9966,
+              "downstream_excluded": 15,
+              "duplicates": 0,
+              "lines": 305260
+            },
+            "path": "pre-train strategy/pretrian data/pretrain_val_set.txt",
+            "processed_uncompressed_sha256": "af05fa7db62b26eb91ed9332b4dcf190962efd02b687bf4a656be2cc5c487670"
+          }
+        }
+      },
+      "source_sha256": "cc88fa67a3a976f2ccde920f450a7b3d121784eb38ce1282519d37ff70be8e6a",
+      "torch_version": "2.11.0+cu128",
+      "protocol": "Full nested subsets; each structure once per pass; final-pass encoder used for downstream; no property labels"
+    }
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.41614911273121835,
+      "validation_loss": 0.3387458234357188,
+      "all_task_validation_loss": 1.2390801265952842,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.2825160743249753,
+        "decomposition_temperature": 1.2441744409208544,
+        "density": 0.8620239771510316,
+        "glass_transition": 1.6002718574953065,
+        "heat_capacity": 0.2257178189524616,
+        "melting_point": 1.1829279813055695,
+        "refractive_index": 1.9645541245148923,
+        "surface_tension": 0.3387458234357188,
+        "thermal_conductivity": 1.5704024264260716,
+        "toxicity": 2.25729921651025,
+        "viscosity": 1.1012476515109948
+      }
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.24276336889714004,
+      "validation_loss": 0.2970417619924983,
+      "all_task_validation_loss": 1.2086027206722367,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.2743166028692892,
+        "decomposition_temperature": 1.266588634385017,
+        "density": 0.8664058209660022,
+        "glass_transition": 1.5056973389349593,
+        "heat_capacity": 0.22687199258264984,
+        "melting_point": 1.207379529572564,
+        "refractive_index": 1.9049863845503185,
+        "surface_tension": 0.2970417619924983,
+        "thermal_conductivity": 1.4304288897792414,
+        "toxicity": 2.2119466947929314,
+        "viscosity": 1.102966276969132
+      }
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.1890538028627634,
+      "validation_loss": 0.24041604722049165,
+      "all_task_validation_loss": 1.1596759076991072,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.2000937407400951,
+        "decomposition_temperature": 1.2530547343390481,
+        "density": 0.8557811445663632,
+        "glass_transition": 1.4226480725998518,
+        "heat_capacity": 0.21374315879684902,
+        "melting_point": 1.2070635425888963,
+        "refractive_index": 1.8414372457877748,
+        "surface_tension": 0.24041604722049165,
+        "thermal_conductivity": 1.42496119568992,
+        "toxicity": 1.9947381920045224,
+        "viscosity": 1.1024979103563686
+      }
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.17570256300270556,
+      "validation_loss": 0.23019600885247588,
+      "all_task_validation_loss": 1.1684243122785867,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.239120278507218,
+        "decomposition_temperature": 1.2643625724876772,
+        "density": 0.8479226659646297,
+        "glass_transition": 1.41029992946848,
+        "heat_capacity": 0.2208686153898396,
+        "melting_point": 1.259524258650882,
+        "refractive_index": 1.640687832111855,
+        "surface_tension": 0.23019600885247588,
+        "thermal_conductivity": 1.5170674152568357,
+        "toxicity": 2.05960723031371,
+        "viscosity": 1.1630106280608499
+      }
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.13822195507586002,
+      "validation_loss": 0.19979366796332337,
+      "all_task_validation_loss": 1.141798397834855,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.224173154315296,
+        "decomposition_temperature": 1.2980457656576856,
+        "density": 0.8427391058510448,
+        "glass_transition": 1.4096557223692074,
+        "heat_capacity": 0.2375026661029755,
+        "melting_point": 1.3017379459176186,
+        "refractive_index": 1.452427245748151,
+        "surface_tension": 0.19979366796332337,
+        "thermal_conductivity": 1.4975751823745838,
+        "toxicity": 1.9875355846123983,
+        "viscosity": 1.1085963352711201
+      }
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.1687759373150766,
+      "validation_loss": 0.24208945460745657,
+      "all_task_validation_loss": 1.1480478209698808,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.2484730723072315,
+        "decomposition_temperature": 1.3211156506647346,
+        "density": 0.9015957505178748,
+        "glass_transition": 1.43860616117281,
+        "heat_capacity": 0.23820283611588688,
+        "melting_point": 1.2683319331991003,
+        "refractive_index": 1.4309492537982698,
+        "surface_tension": 0.24208945460745657,
+        "thermal_conductivity": 1.5865696942713807,
+        "toxicity": 1.8406369684751318,
+        "viscosity": 1.1119552555388124
+      }
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.14473679905757308,
+      "validation_loss": 0.23552906019501596,
+      "all_task_validation_loss": 1.1308120384389573,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.2135677916468426,
+        "decomposition_temperature": 1.3158950566461347,
+        "density": 0.8995793776802807,
+        "glass_transition": 1.384952110798592,
+        "heat_capacity": 0.2518098643557963,
+        "melting_point": 1.349672999603671,
+        "refractive_index": 1.44319597781212,
+        "surface_tension": 0.23552906019501596,
+        "thermal_conductivity": 1.4010706039289953,
+        "toxicity": 1.8625121608092388,
+        "viscosity": 1.0811474193518409
+      }
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.12966608248651026,
+      "validation_loss": 0.23772403187505461,
+      "all_task_validation_loss": 1.1628577704289447,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.235489352985828,
+        "decomposition_temperature": 1.347190276099626,
+        "density": 0.9543358346428205,
+        "glass_transition": 1.4336679563459338,
+        "heat_capacity": 0.24119882932733605,
+        "melting_point": 1.3149440228982368,
+        "refractive_index": 1.4742472766447257,
+        "surface_tension": 0.23772403187505461,
+        "thermal_conductivity": 1.583527645403616,
+        "toxicity": 1.8803169330597398,
+        "viscosity": 1.0887933154354723
+      }
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.11730827854946256,
+      "validation_loss": 0.18298646735246019,
+      "all_task_validation_loss": 1.1338695779591412,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.1736752598584577,
+        "decomposition_temperature": 1.318336256122783,
+        "density": 0.9207523784315598,
+        "glass_transition": 1.3880830879114456,
+        "heat_capacity": 0.259109735050704,
+        "melting_point": 1.282129744005881,
+        "refractive_index": 1.3293860075014639,
+        "surface_tension": 0.18298646735246019,
+        "thermal_conductivity": 1.5989386540826762,
+        "toxicity": 1.9334751210379997,
+        "viscosity": 1.0856926461951248
+      }
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.10263366925530136,
+      "validation_loss": 0.21943100183206388,
+      "all_task_validation_loss": 1.1208723962419544,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.2025808914635499,
+        "decomposition_temperature": 1.2951615280638369,
+        "density": 0.8689988511906169,
+        "glass_transition": 1.3525738545715922,
+        "heat_capacity": 0.2489560114278207,
+        "melting_point": 1.306300521880732,
+        "refractive_index": 1.2843715939999967,
+        "surface_tension": 0.21943100183206388,
+        "thermal_conductivity": 1.6331038704687608,
+        "toxicity": 1.8131794509050452,
+        "viscosity": 1.1049387828574844
+      }
+    },
+    {
+      "epoch": 11,
+      "train_loss": 0.11610582739580423,
+      "validation_loss": 0.2089446282760013,
+      "all_task_validation_loss": 1.1118571801856287,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.2138516360303353,
+        "decomposition_temperature": 1.3058725025758482,
+        "density": 0.9371776365995111,
+        "glass_transition": 1.4243278726356197,
+        "heat_capacity": 0.25375749435689327,
+        "melting_point": 1.2936039927863279,
+        "refractive_index": 1.2069857316483845,
+        "surface_tension": 0.2089446282760013,
+        "thermal_conductivity": 1.4987675132937908,
+        "toxicity": 1.8173507491444283,
+        "viscosity": 1.0697892246947769
+      }
+    },
+    {
+      "epoch": 12,
+      "train_loss": 0.10386526287533343,
+      "validation_loss": 0.2329506655119859,
+      "all_task_validation_loss": 1.1344172402797765,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.2622521098246715,
+        "decomposition_temperature": 1.328518460716985,
+        "density": 0.9461495595202317,
+        "glass_transition": 1.398029932763471,
+        "heat_capacity": 0.2396611484496237,
+        "melting_point": 1.3050905642138488,
+        "refractive_index": 1.2057396803175133,
+        "surface_tension": 0.2329506655119859,
+        "thermal_conductivity": 1.616454486358213,
+        "toxicity": 1.8883246354869079,
+        "viscosity": 1.055418399914091
+      }
+    },
+    {
+      "epoch": 13,
+      "train_loss": 0.08819493009708822,
+      "validation_loss": 0.2354543644742235,
+      "all_task_validation_loss": 1.1213237555173352,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.281263070995415,
+        "decomposition_temperature": 1.3007004195965424,
+        "density": 0.9329158564973592,
+        "glass_transition": 1.429107580563071,
+        "heat_capacity": 0.23900189582692674,
+        "melting_point": 1.3296492462855276,
+        "refractive_index": 1.1529809417986807,
+        "surface_tension": 0.2354543644742235,
+        "thermal_conductivity": 1.5890083196447575,
+        "toxicity": 1.759515039018486,
+        "viscosity": 1.0849645759896962
+      }
+    },
+    {
+      "epoch": 14,
+      "train_loss": 0.10039421019144357,
+      "validation_loss": 0.21174201884046084,
+      "all_task_validation_loss": 1.1249728847892029,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.3147869944550894,
+        "decomposition_temperature": 1.307729089031717,
+        "density": 0.9345007726460749,
+        "glass_transition": 1.4106334957556106,
+        "heat_capacity": 0.23384745227959913,
+        "melting_point": 1.2763357963588897,
+        "refractive_index": 1.1104900897643712,
+        "surface_tension": 0.21174201884046084,
+        "thermal_conductivity": 1.649989827643496,
+        "toxicity": 1.8845202669338639,
+        "viscosity": 1.040125928972059
+      }
+    },
+    {
+      "epoch": 15,
+      "train_loss": 0.10237331245094537,
+      "validation_loss": 0.17945203803831533,
+      "all_task_validation_loss": 1.1112362343763762,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.3444806268637073,
+        "decomposition_temperature": 1.2625562323960045,
+        "density": 0.9003469123837082,
+        "glass_transition": 1.4111439097451821,
+        "heat_capacity": 0.25650478535759264,
+        "melting_point": 1.2974985945599888,
+        "refractive_index": 1.12454448674653,
+        "surface_tension": 0.17945203803831533,
+        "thermal_conductivity": 1.5522818775408866,
+        "toxicity": 1.8279946303252954,
+        "viscosity": 1.0667944841829293
+      }
+    },
+    {
+      "epoch": 16,
+      "train_loss": 0.08573723556939512,
+      "validation_loss": 0.20844724943655307,
+      "all_task_validation_loss": 1.1243689234805212,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.3106072429603703,
+        "decomposition_temperature": 1.3213387086796389,
+        "density": 0.9408631660246867,
+        "glass_transition": 1.415966322775862,
+        "heat_capacity": 0.25202253275522246,
+        "melting_point": 1.2879862053601518,
+        "refractive_index": 1.16281666044869,
+        "surface_tension": 0.20844724943655307,
+        "thermal_conductivity": 1.57805285784524,
+        "toxicity": 1.8446089322050236,
+        "viscosity": 1.0453482797942928
+      }
+    },
+    {
+      "epoch": 17,
+      "train_loss": 0.07709228032268584,
+      "validation_loss": 0.2665089677288511,
+      "all_task_validation_loss": 1.1293471963541075,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.3733865151472988,
+        "decomposition_temperature": 1.3293868339583803,
+        "density": 0.9527352585165271,
+        "glass_transition": 1.4186741230389568,
+        "heat_capacity": 0.26505766109933054,
+        "melting_point": 1.2976610846884586,
+        "refractive_index": 1.041484127436066,
+        "surface_tension": 0.2665089677288511,
+        "thermal_conductivity": 1.6116308839375675,
+        "toxicity": 1.8410781968317278,
+        "viscosity": 1.0252155075120175
+      }
+    },
+    {
+      "epoch": 18,
+      "train_loss": 0.07481843311339617,
+      "validation_loss": 0.244798184715775,
+      "all_task_validation_loss": 1.1041986678904736,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.4193121848304295,
+        "decomposition_temperature": 1.3069907997775523,
+        "density": 0.9491098118725798,
+        "glass_transition": 1.438419254426021,
+        "heat_capacity": 0.24431805216404912,
+        "melting_point": 1.293710067683721,
+        "refractive_index": 1.0391313255585288,
+        "surface_tension": 0.244798184715775,
+        "thermal_conductivity": 1.4253201031732405,
+        "toxicity": 1.738549112269249,
+        "viscosity": 1.0465264503240623
+      }
+    },
+    {
+      "epoch": 19,
+      "train_loss": 0.06143922622781247,
+      "validation_loss": 0.2726998641714715,
+      "all_task_validation_loss": 1.1178738907485426,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.3867006499803443,
+        "decomposition_temperature": 1.2788857126223123,
+        "density": 0.9233799908847191,
+        "glass_transition": 1.44803575200582,
+        "heat_capacity": 0.2685755200967064,
+        "melting_point": 1.2958011413212147,
+        "refractive_index": 1.0566850010893558,
+        "surface_tension": 0.2726998641714715,
+        "thermal_conductivity": 1.505459195721698,
+        "toxicity": 1.7928607210511658,
+        "viscosity": 1.067529249289158
+      }
+    },
+    {
+      "epoch": 20,
+      "train_loss": 0.05588890871964395,
+      "validation_loss": 0.2527242315524165,
+      "all_task_validation_loss": 1.1119646301510686,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.3691988154852912,
+        "decomposition_temperature": 1.2766689189523714,
+        "density": 0.9256246592216031,
+        "glass_transition": 1.44280989039346,
+        "heat_capacity": 0.2691281085035901,
+        "melting_point": 1.2998293719282659,
+        "refractive_index": 1.106726524324283,
+        "surface_tension": 0.2527242315524165,
+        "thermal_conductivity": 1.4526022238960785,
+        "toxicity": 1.785147039944407,
+        "viscosity": 1.0511511474599882
+      }
+    },
+    {
+      "epoch": 21,
+      "train_loss": 0.07267623020336032,
+      "validation_loss": 0.2864729885349071,
+      "all_task_validation_loss": 1.1286855896721233,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.4228133718746536,
+        "decomposition_temperature": 1.2962790572855747,
+        "density": 0.9321697599316315,
+        "glass_transition": 1.4587154424559694,
+        "heat_capacity": 0.2860216704963902,
+        "melting_point": 1.2940165956353704,
+        "refractive_index": 1.057784646087567,
+        "surface_tension": 0.2864729885349071,
+        "thermal_conductivity": 1.5207257002023096,
+        "toxicity": 1.827852453396017,
+        "viscosity": 1.0326898004929677
+      }
+    },
+    {
+      "epoch": 22,
+      "train_loss": 0.0842856168281287,
+      "validation_loss": 0.34272699737506734,
+      "all_task_validation_loss": 1.1346322900721952,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.409837990167213,
+        "decomposition_temperature": 1.2632217886109247,
+        "density": 0.9311769879297322,
+        "glass_transition": 1.4567034222896886,
+        "heat_capacity": 0.28527089496994146,
+        "melting_point": 1.3088238868952669,
+        "refractive_index": 1.0388238770643627,
+        "surface_tension": 0.34272699737506734,
+        "thermal_conductivity": 1.602071856026317,
+        "toxicity": 1.7884441273856304,
+        "viscosity": 1.053853362080003
+      }
+    },
+    {
+      "epoch": 23,
+      "train_loss": 0.06878161367960274,
+      "validation_loss": 0.39795246958212294,
+      "all_task_validation_loss": 1.1329501491358618,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.4311565764437044,
+        "decomposition_temperature": 1.2758014210277675,
+        "density": 0.9218561117559733,
+        "glass_transition": 1.466017118062516,
+        "heat_capacity": 0.2850302762139118,
+        "melting_point": 1.280431740999909,
+        "refractive_index": 1.0608184685719175,
+        "surface_tension": 0.39795246958212294,
+        "thermal_conductivity": 1.4369588751713773,
+        "toxicity": 1.8627264512748523,
+        "viscosity": 1.0437021313904273
+      }
+    },
+    {
+      "epoch": 24,
+      "train_loss": 0.09808436432154849,
+      "validation_loss": 0.3333718611405942,
+      "all_task_validation_loss": 1.1370349985216437,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.395263747308016,
+        "decomposition_temperature": 1.2669178276051314,
+        "density": 0.9173650438432134,
+        "glass_transition": 1.4771613782368063,
+        "heat_capacity": 0.2892147637944666,
+        "melting_point": 1.3209765749375273,
+        "refractive_index": 1.095935157606117,
+        "surface_tension": 0.3333718611405942,
+        "thermal_conductivity": 1.565299349712804,
+        "toxicity": 1.7729248414614622,
+        "viscosity": 1.0729544380919418
+      }
+    },
+    {
+      "epoch": 25,
+      "train_loss": 0.06313730570022016,
+      "validation_loss": 0.2798239098846934,
+      "all_task_validation_loss": 1.156466806460363,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.434389416229677,
+        "decomposition_temperature": 1.2812339706973022,
+        "density": 0.9142962307513445,
+        "glass_transition": 1.4645168783546314,
+        "heat_capacity": 0.2750916713532577,
+        "melting_point": 1.2876058699092603,
+        "refractive_index": 1.074961937843305,
+        "surface_tension": 0.2798239098846934,
+        "thermal_conductivity": 1.7382096695213762,
+        "toxicity": 1.9066236138045631,
+        "viscosity": 1.0643817027145814
+      }
+    },
+    {
+      "epoch": 26,
+      "train_loss": 0.0683574231620878,
+      "validation_loss": 0.33466231406694086,
+      "all_task_validation_loss": 1.1473231326538424,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.4220309024087905,
+        "decomposition_temperature": 1.2952701958196977,
+        "density": 0.9171267779168671,
+        "glass_transition": 1.4727161085556877,
+        "heat_capacity": 0.275314789455374,
+        "melting_point": 1.2345518479024367,
+        "refractive_index": 1.0734500165471583,
+        "surface_tension": 0.33466231406694086,
+        "thermal_conductivity": 1.7479794140007416,
+        "toxicity": 1.7916880549606709,
+        "viscosity": 1.0557640375578996
+      }
+    },
+    {
+      "epoch": 27,
+      "train_loss": 0.048913951711729166,
+      "validation_loss": 0.2864295827810309,
+      "all_task_validation_loss": 1.1250118790538877,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.4459477961794915,
+        "decomposition_temperature": 1.2870730513764177,
+        "density": 0.9411322933833263,
+        "glass_transition": 1.4678243058358185,
+        "heat_capacity": 0.2769936479495964,
+        "melting_point": 1.2752228616913457,
+        "refractive_index": 1.037340115067553,
+        "surface_tension": 0.2864295827810309,
+        "thermal_conductivity": 1.5726499830715712,
+        "toxicity": 1.7315236334332103,
+        "viscosity": 1.0529933988234008
+      }
+    },
+    {
+      "epoch": 28,
+      "train_loss": 0.07039714137092233,
+      "validation_loss": 0.34303376474406494,
+      "all_task_validation_loss": 1.1072030676338889,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.4290988041408796,
+        "decomposition_temperature": 1.2431183759673121,
+        "density": 0.8877425978131817,
+        "glass_transition": 1.4838713821455995,
+        "heat_capacity": 0.27803492406695957,
+        "melting_point": 1.3336159543956811,
+        "refractive_index": 1.0295297381255208,
+        "surface_tension": 0.34303376474406494,
+        "thermal_conductivity": 1.5488293187446138,
+        "toxicity": 1.5419977538503524,
+        "viscosity": 1.0603611299786115
+      }
+    },
+    {
+      "epoch": 29,
+      "train_loss": 0.06296376572921872,
+      "validation_loss": 0.3746918084244169,
+      "all_task_validation_loss": 1.138755654585454,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.506370635004388,
+        "decomposition_temperature": 1.2587420103522626,
+        "density": 0.8607873600701591,
+        "glass_transition": 1.4786754803158333,
+        "heat_capacity": 0.31806482740102554,
+        "melting_point": 1.2904425869008198,
+        "refractive_index": 1.087083877010701,
+        "surface_tension": 0.3746918084244169,
+        "thermal_conductivity": 1.643847167769799,
+        "toxicity": 1.6633723981874602,
+        "viscosity": 1.0442340490031283
+      }
+    },
+    {
+      "epoch": 30,
+      "train_loss": 0.06499649818055332,
+      "validation_loss": 0.26760818686209387,
+      "all_task_validation_loss": 1.1181940322050976,
+      "per_task_validation_mse": {
+        "co2_solubility": 1.4813792067930465,
+        "decomposition_temperature": 1.2821560174977342,
+        "density": 0.9424822799870985,
+        "glass_transition": 1.4969549445217243,
+        "heat_capacity": 0.3004473134528552,
+        "melting_point": 1.2703522363312525,
+        "refractive_index": 1.074219895405153,
+        "surface_tension": 0.26760818686209387,
+        "thermal_conductivity": 1.3899776046051324,
+        "toxicity": 1.7283252781781244,
+        "viscosity": 1.0662313906218592
+      }
+    }
+  ],
+  "validation_best": 0.17945203803831533,
+  "initial_state_sha256": "560cdc013c965ebd212d72b1b32cc76c77e03b70df0bdec29554a7452bbe89a3",
+  "per_task_presentations": 24000,
+  "best_epoch": 15,
+  "epochs": 30,
+  "reached_epoch_cap": false,
+  "trainable_parameters": 384803,
+  "fitting_wall_seconds": 444.1691460609436,
+  "validation": {
+    "co2_solubility": {
+      "n": 444,
+      "mae": 0.16222899904383115,
+      "rmse": 0.2015258567062281,
+      "r2": -0.09618473012220274,
+      "transformed_mae": 0.9736802751329809,
+      "standardized_mse": 1.344480620645703,
+      "train_mean_baseline_transformed_mae": 0.9325091933112832,
+      "unit": "mole fraction"
+    },
+    "decomposition_temperature": {
+      "n": 119,
+      "mae": 75.51478760474662,
+      "rmse": 90.0423766051149,
+      "r2": -0.23178029720550875,
+      "transformed_mae": 75.51478760474662,
+      "standardized_mse": 1.2625562342725203,
+      "train_mean_baseline_transformed_mae": 68.83968841086131,
+      "unit": "degC"
+    },
+    "density": {
+      "n": 2493,
+      "mae": 142.23304098277063,
+      "rmse": 169.56881506545355,
+      "r2": 0.0054826642175555,
+      "transformed_mae": 142.23304098277063,
+      "standardized_mse": 0.9003469112186478,
+      "train_mean_baseline_transformed_mae": 144.47147102524943,
+      "unit": "kg/m3"
+    },
+    "glass_transition": {
+      "n": 53,
+      "mae": 20.843927971121143,
+      "rmse": 26.844816220870673,
+      "r2": -0.06484944299708584,
+      "transformed_mae": 20.843927971121143,
+      "standardized_mse": 1.4111439001466075,
+      "train_mean_baseline_transformed_mae": 20.581698113207544,
+      "unit": "degC"
+    },
+    "heat_capacity": {
+      "n": 384,
+      "mae": 143.13836175521345,
+      "rmse": 170.64527767738392,
+      "r2": -0.5776091306503399,
+      "transformed_mae": 143.13836175521345,
+      "standardized_mse": 0.25650478215865496,
+      "train_mean_baseline_transformed_mae": 110.34371001192471,
+      "unit": "workbook HCAP unit (unverified)"
+    },
+    "melting_point": {
+      "n": 228,
+      "mae": 71.45050846436368,
+      "rmse": 87.85355487962076,
+      "r2": -0.2056813991961226,
+      "transformed_mae": 71.45050846436368,
+      "standardized_mse": 1.297498600748584,
+      "train_mean_baseline_transformed_mae": 65.30635788668003,
+      "unit": "K"
+    },
+    "refractive_index": {
+      "n": 324,
+      "mae": 0.033917953559160205,
+      "rmse": 0.04346563889513959,
+      "r2": -0.3254419920575442,
+      "transformed_mae": 0.033917953559160205,
+      "standardized_mse": 1.1245444643776334,
+      "train_mean_baseline_transformed_mae": 0.029999616235732565,
+      "unit": "dimensionless"
+    },
+    "surface_tension": {
+      "n": 196,
+      "mae": 0.002429828681650686,
+      "rmse": 0.0037067033833852302,
+      "r2": 0.7565131414022158,
+      "transformed_mae": 0.002429828681650686,
+      "standardized_mse": 0.1794520438840985,
+      "train_mean_baseline_transformed_mae": 0.006520815188998804,
+      "unit": "workbook native (consistent with N/m)"
+    },
+    "thermal_conductivity": {
+      "n": 21,
+      "mae": 0.026096887820651317,
+      "rmse": 0.02844168350701292,
+      "r2": 0.13531504769715486,
+      "transformed_mae": 0.026096887820651317,
+      "standardized_mse": 1.5522817789745422,
+      "train_mean_baseline_transformed_mae": 0.027367313664596268,
+      "unit": "workbook native (consistent with W/(m K))"
+    },
+    "toxicity": {
+      "n": 35,
+      "mae": 0.9003476272841242,
+      "rmse": 1.3199156958874863,
+      "r2": -0.2726932809322382,
+      "transformed_mae": 0.9003476272841242,
+      "standardized_mse": 1.8279946855145897,
+      "train_mean_baseline_transformed_mae": 0.8848813784059322,
+      "unit": "log10(EC50), source convention"
+    },
+    "viscosity": {
+      "n": 1303,
+      "mae": 388.04862510064197,
+      "rmse": 1775.7563647271763,
+      "r2": -0.038090548560611115,
+      "transformed_mae": 1.2922766149847318,
+      "standardized_mse": 1.0667944876090683,
+      "train_mean_baseline_transformed_mae": 1.2558405722812116,
+      "unit": "mPa s"
+    }
+  },
+  "test": {
+    "co2_solubility": {
+      "n": 867,
+      "mae": 0.20068523384018921,
+      "rmse": 0.2529153943146225,
+      "r2": -0.29033886111744756,
+      "transformed_mae": 0.880094792289475,
+      "standardized_mse": 1.0755860884162025,
+      "train_mean_baseline_transformed_mae": 0.8831861570782921,
+      "unit": "mole fraction"
+    },
+    "decomposition_temperature": {
+      "n": 118,
+      "mae": 75.36075591600051,
+      "rmse": 91.19348988784141,
+      "r2": -0.3086717390647151,
+      "transformed_mae": 75.36075591600051,
+      "standardized_mse": 1.2950439402302485,
+      "train_mean_baseline_transformed_mae": 67.06870767009318,
+      "unit": "degC"
+    },
+    "density": {
+      "n": 4055,
+      "mae": 169.03747694838478,
+      "rmse": 191.21132368901237,
+      "r2": 0.09932211310057293,
+      "transformed_mae": 169.03747694838478,
+      "standardized_mse": 1.1448408678535802,
+      "train_mean_baseline_transformed_mae": 177.15338067503004,
+      "unit": "kg/m3"
+    },
+    "glass_transition": {
+      "n": 56,
+      "mae": 19.91113014333722,
+      "rmse": 26.091758833168843,
+      "r2": -0.015332144332396602,
+      "transformed_mae": 19.91113014333722,
+      "standardized_mse": 1.3330828579272973,
+      "train_mean_baseline_transformed_mae": 20.977285714285717,
+      "unit": "degC"
+    },
+    "heat_capacity": {
+      "n": 635,
+      "mae": 254.8794197376856,
+      "rmse": 371.2358104788489,
+      "r2": -0.73892865349024,
+      "transformed_mae": 254.8794197376856,
+      "standardized_mse": 1.2139663347929517,
+      "train_mean_baseline_transformed_mae": 182.527007763879,
+      "unit": "workbook HCAP unit (unverified)"
+    },
+    "melting_point": {
+      "n": 204,
+      "mae": 74.5764493047867,
+      "rmse": 91.34392721184345,
+      "r2": -0.2294014785303775,
+      "transformed_mae": 74.5764493047867,
+      "standardized_mse": 1.4026443887089974,
+      "train_mean_baseline_transformed_mae": 67.06041624456907,
+      "unit": "K"
+    },
+    "refractive_index": {
+      "n": 322,
+      "mae": 0.0372490122895327,
+      "rmse": 0.042275762885715815,
+      "r2": -0.07969603545652482,
+      "transformed_mae": 0.0372490122895327,
+      "standardized_mse": 1.06381816944082,
+      "train_mean_baseline_transformed_mae": 0.035718184108754256,
+      "unit": "dimensionless"
+    },
+    "surface_tension": {
+      "n": 352,
+      "mae": 0.0028293131841299235,
+      "rmse": 0.004619229597805,
+      "r2": 0.7425943075075674,
+      "transformed_mae": 0.0028293131841299235,
+      "standardized_mse": 0.2786838738529486,
+      "train_mean_baseline_transformed_mae": 0.007496201181405301,
+      "unit": "workbook native (consistent with N/m)"
+    },
+    "thermal_conductivity": {
+      "n": 65,
+      "mae": 0.02537255087447513,
+      "rmse": 0.027711442408317525,
+      "r2": 0.11874924892163152,
+      "transformed_mae": 0.02537255087447513,
+      "standardized_mse": 1.4735952894826705,
+      "train_mean_baseline_transformed_mae": 0.02461092809364548,
+      "unit": "workbook native (consistent with W/(m K))"
+    },
+    "toxicity": {
+      "n": 31,
+      "mae": 0.7801108509513032,
+      "rmse": 1.1721098852987568,
+      "r2": -0.1283797386516794,
+      "transformed_mae": 0.7801108509513032,
+      "standardized_mse": 1.4415151115315996,
+      "train_mean_baseline_transformed_mae": 0.7877035108396664,
+      "unit": "log10(EC50), source convention"
+    },
+    "viscosity": {
+      "n": 1728,
+      "mae": 339.94755836509586,
+      "rmse": 1703.5952751547495,
+      "r2": -0.029371106599369146,
+      "transformed_mae": 1.2660446477612735,
+      "standardized_mse": 1.0070926841466072,
+      "train_mean_baseline_transformed_mae": 1.2097838425530245,
+      "unit": "mPa s"
+    }
+  }
+}
