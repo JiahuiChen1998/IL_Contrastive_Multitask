@@ -7,7 +7,7 @@ import subprocess
 import sys
 from pathlib import Path
 import pandas as pd
-from il_mixer.equations import STATIC_TASKS, CONDITION_TASKS, choose_cp_degree
+from il_contrastive.equations import STATIC_TASKS, CONDITION_TASKS, choose_cp_degree
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -42,7 +42,7 @@ def main():
     frame = pd.read_csv(data, low_memory=False)
     if frame.groupby('smiles').split.nunique().max() != 1: raise ValueError('Structure leakage')
     degree, coverage = choose_cp_degree(frame[frame.split == 'train'])
-    source_hash = hashlib.sha256(b''.join(f.read_bytes() for f in sorted((ROOT/'il_mixer').glob('*.py')))).hexdigest()
+    source_hash = hashlib.sha256(b''.join(f.read_bytes() for f in sorted((ROOT/'il_contrastive').glob('*.py')))).hexdigest()
     manifest = {'version':'ablation_v1','design':'single_task','seeds':seeds,'tasks':tasks,
                 'data':str(data),'data_sha256':hashlib.sha256(data.read_bytes()).hexdigest(),
                 'source_sha256':source_hash,'cp_degree':degree,'cp_coverage':coverage,'smoke':a.smoke,
@@ -53,7 +53,7 @@ def main():
         for seed in seeds:
             for variant, attention, head in variants(task):
                 destination = output/task/f'seed_{seed}'/variant
-                cmd = [sys.executable,'-m','il_mixer.train','--data',str(data),'--output',str(destination),
+                cmd = [sys.executable,'-m','il_contrastive.train','--data',str(data),'--output',str(destination),
                        '--tasks',task,'--seed',str(seed),'--task-schema','ablation_v1','--head-mode',head,
                        '--cp-degree',str(degree),'--epochs',str(manifest['epochs']),
                        '--steps-per-epoch',str(manifest['steps_per_epoch']),

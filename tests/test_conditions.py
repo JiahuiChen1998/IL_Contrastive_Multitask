@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
-from il_mixer.conditions import condition_basis, EmpiricalTrend, condition_domains
-from il_mixer.equations import study_tasks
+from il_contrastive.conditions import condition_basis, EmpiricalTrend, condition_domains
+from il_contrastive.equations import study_tasks
 
 
 def test_pressure_trend_extrapolates_and_does_not_refit_on_query():

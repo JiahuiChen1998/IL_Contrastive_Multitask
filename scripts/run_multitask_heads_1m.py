@@ -13,7 +13,7 @@ import time
 
 import torch
 
-from il_mixer.pretraining import digest
+from il_contrastive.pretraining import digest
 from scripts.pretrain_full_coverage import atomic_json
 from scripts import run_multitask_heads_study as original
 

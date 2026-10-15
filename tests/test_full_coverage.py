@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 import torch
-from il_mixer.full_coverage import FullCoverageSampler
+from il_contrastive.full_coverage import FullCoverageSampler
 from scripts.pretrain_full_coverage import parser, run
 
 

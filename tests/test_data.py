@@ -2,8 +2,8 @@ import json
 import zipfile
 from xml.sax.saxutils import escape
 import pandas as pd
-from il_mixer import data
-from il_mixer.tasks import TASKS
+from il_contrastive import data
+from il_contrastive.tasks import TASKS
 
 
 def write_xlsx(path, rows):

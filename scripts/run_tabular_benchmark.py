@@ -4,9 +4,9 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import torch
-from il_mixer.equations import study_tasks
-from il_mixer.train import transformed
-from il_mixer.tabular import feature_matrix,TrainPreprocessor,train_only_limix_preprocessing
+from il_contrastive.equations import study_tasks
+from il_contrastive.train import transformed
+from il_contrastive.tabular import feature_matrix,TrainPreprocessor,train_only_limix_preprocessing
 ROOT=Path(__file__).resolve().parents[1]
 KEY=['smiles','task','source_file','source_sheet','source_row']
 
@@ -78,7 +78,7 @@ def main():
     jobs=[dict(task=t,model=m,representation=r,seed=s) for t in tasks for m in models for r in reps for s in seeds]
     settings={k:v for k,v in vars(a).items() if k not in ['run','job_index','job_timeout']}
     manifest=dict(schema='tabular_small_v1',data_sha256=sha(data),settings=settings,jobs=jobs,
-        code_sha256=hashlib.sha256((ROOT/'il_mixer/tabular.py').read_bytes()+Path(__file__).read_bytes()).hexdigest(),
+        code_sha256=hashlib.sha256((ROOT/'il_contrastive/tabular.py').read_bytes()+Path(__file__).read_bytes()).hexdigest(),
         criterion='Strictly below threshold, all-split coverage; train/validation/test counts also reported',
         task_schema='ablation_v1',preprocessing='train only',refit_train_plus_validation=False)
     out.mkdir(parents=True,exist_ok=True);plan=out/'plan.json'

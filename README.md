@@ -29,7 +29,7 @@ The prediction audit checks row identities, target values, recorded conditions, 
 |---|---|
 | `data/benchmarks/il_v1/` | 74,887 observations, 5,458 complete IL identities, row/structure split manifests, task schema and checksums |
 | `data/processed/` | Preserved importer outputs, rejected records and duplicate records |
-| `il_mixer/` | Graph features, encoder, condition heads, training, pretraining and prediction code |
+| `il_contrastive/` | Graph features, encoder, condition heads, training, pretraining and prediction code |
 | `scripts/` | Scientific trainers and their dependencies; portable reproduction and verification commands |
 | `configs/experiments/` | Settings and jobs for the eight graph studies |
 | `configs/reference_plans/` | Historical plans, with local paths normalized for publication |

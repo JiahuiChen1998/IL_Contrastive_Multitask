@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
-from il_mixer.tabular import TrainPreprocessor,structure_features,feature_matrix,train_only_limix_preprocessing
-from il_mixer.equations import study_tasks
+from il_contrastive.tabular import TrainPreprocessor,structure_features,feature_matrix,train_only_limix_preprocessing
+from il_contrastive.equations import study_tasks
 from scripts.run_tabular_benchmark import scores
 
 def test_fragment_order_invariance():

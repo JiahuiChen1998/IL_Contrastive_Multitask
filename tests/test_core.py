@@ -2,11 +2,11 @@ import numpy as np
 import pandas as pd
 import pytest
 import torch
-from il_mixer.graph import canonicalize, graph, pack
-from il_mixer.model import ILMixer
-from il_mixer.tasks import TASKS
-from il_mixer.data import split_for
-from il_mixer.train import fit_scalers, loss_for
+from il_contrastive.graph import canonicalize, graph, pack
+from il_contrastive.model import ILMixer
+from il_contrastive.tasks import TASKS
+from il_contrastive.data import split_for
+from il_contrastive.train import fit_scalers, loss_for
 
 S = 'CCCC[n+]1ccn(C)c1.[Cl-]'
 

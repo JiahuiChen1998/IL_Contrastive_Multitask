@@ -13,8 +13,8 @@ import time
 
 import pandas as pd
 import torch
-from il_mixer.equations import STATIC_TASKS, choose_cp_degree, study_tasks
-from il_mixer.pretraining import digest
+from il_contrastive.equations import STATIC_TASKS, choose_cp_degree, study_tasks
+from il_contrastive.pretraining import digest
 from scripts.pretrain_full_coverage import atomic_json
 from scripts.tabular_benchmark_archive import freeze
 
@@ -29,7 +29,7 @@ ARTIFACTS=['metrics.json','best.pt','task_config.json','validation_predictions.c
 
 
 def training_fingerprint():
-    files=sorted(Path('il_mixer').glob('*.py'))+[Path(__file__),Path('scripts/train_multitask_heads.py')]
+    files=sorted(Path('il_contrastive').glob('*.py'))+[Path(__file__),Path('scripts/train_multitask_heads.py')]
     return hashlib.sha256(b''.join(p.read_bytes() for p in files)).hexdigest()
 
 

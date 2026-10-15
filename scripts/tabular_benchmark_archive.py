@@ -10,8 +10,8 @@ from pathlib import Path
 
 import pandas as pd
 
-from il_mixer.equations import study_tasks
-from il_mixer.pretraining import digest
+from il_contrastive.equations import study_tasks
+from il_contrastive.pretraining import digest
 
 KEY = ['smiles', 'task', 'source_file', 'source_sheet', 'source_row']
 ROOTS = [

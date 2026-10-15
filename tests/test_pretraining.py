@@ -1,8 +1,8 @@
 import torch
 import pytest
-from il_mixer.graph import graph, pack
-from il_mixer.model import ILMixer
-from il_mixer.pretraining import masked_view, contrastive_loss, load_encoder
+from il_contrastive.graph import graph, pack
+from il_contrastive.model import ILMixer
+from il_contrastive.pretraining import masked_view, contrastive_loss, load_encoder
 
 
 def test_general_graph_keeps_strict_downstream_and_handles_no_bonds():
@@ -60,7 +60,7 @@ def test_corpus_preparation_excludes_downstream_and_deduplicates(tmp_path, monke
 
 def test_sqlite_batches_are_unique_and_respect_hash_subset(tmp_path):
     import sqlite3
-    from il_mixer.pretraining import smiles_batches
+    from il_contrastive.pretraining import smiles_batches
     db=tmp_path/'corpus.sqlite'
     with sqlite3.connect(db) as conn:
         conn.execute('CREATE TABLE molecules (smiles TEXT,split TEXT,pair INTEGER,shuffle_key TEXT)')

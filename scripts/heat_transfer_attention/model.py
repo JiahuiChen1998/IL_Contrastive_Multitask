@@ -1,7 +1,7 @@
 """Task-specific channel attention with an identity-initialized capacity control."""
 import torch
 from torch import nn
-from il_mixer.model import ILMixer
+from il_contrastive.model import ILMixer
 
 
 class HeatTransferMixer(ILMixer):

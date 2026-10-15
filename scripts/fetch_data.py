@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from urllib.parse import quote
 from urllib.request import urlopen
-from il_mixer.tasks import TASKS
+from il_contrastive.tasks import TASKS
 
 COMMIT = 'ff5e55cfb8162b0706fc2d88ca5cd384705686b1'
 BASE = f'https://raw.githubusercontent.com/GuzhongChen/ILTransR/{COMMIT}/'

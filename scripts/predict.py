@@ -3,7 +3,7 @@ import argparse
 from pathlib import Path
 import pandas as pd
 import torch
-from il_mixer import predict as original
+from il_contrastive import predict as original
 from scripts.heat_transfer_attention.model import HeatTransferMixer
 
 

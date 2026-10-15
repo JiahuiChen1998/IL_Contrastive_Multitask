@@ -10,7 +10,7 @@ from pathlib import Path
 import subprocess
 import sys
 
-from il_mixer.pretraining import digest
+from il_contrastive.pretraining import digest
 from scripts.tabular_benchmark_archive import ROOTS, freeze, index_results
 
 ROOT = Path(__file__).resolve().parents[1]

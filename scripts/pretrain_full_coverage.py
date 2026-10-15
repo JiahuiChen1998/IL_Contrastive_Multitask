@@ -11,13 +11,13 @@ import time
 
 import torch
 from torch import nn
-from il_mixer.full_coverage import FullCoverageSampler, corpus_metadata
-from il_mixer.graph import pack, graph
-from il_mixer.model import ILMixer
-from il_mixer.pretraining import masked_view, contrastive_loss
+from il_contrastive.full_coverage import FullCoverageSampler, corpus_metadata
+from il_contrastive.graph import pack, graph
+from il_contrastive.model import ILMixer
+from il_contrastive.pretraining import masked_view, contrastive_loss
 
-SOURCE_FILES = ['il_mixer/full_coverage.py', 'il_mixer/graph.py', 'il_mixer/model.py',
-                'il_mixer/pretraining.py', 'scripts/pretrain_full_coverage.py']
+SOURCE_FILES = ['il_contrastive/full_coverage.py', 'il_contrastive/graph.py', 'il_contrastive/model.py',
+                'il_contrastive/pretraining.py', 'scripts/pretrain_full_coverage.py']
 
 
 def source_hash():

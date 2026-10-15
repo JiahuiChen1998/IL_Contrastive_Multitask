@@ -10,11 +10,11 @@ import time
 import numpy as np
 import pandas as pd
 import torch
-from il_mixer.equations import study_tasks
-from il_mixer.tabular import feature_matrix, TrainPreprocessor
-from il_mixer.conditions import condition_basis, EmpiricalTrend, condition_domains
-from il_mixer.train import transformed
-from il_mixer.pretraining import digest
+from il_contrastive.equations import study_tasks
+from il_contrastive.tabular import feature_matrix, TrainPreprocessor
+from il_contrastive.conditions import condition_basis, EmpiricalTrend, condition_domains
+from il_contrastive.train import transformed
+from il_contrastive.pretraining import digest
 from scripts.run_tabular_benchmark import predict_model, scores, write_json, KEY
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -40,7 +40,7 @@ def main():
     if f.groupby('smiles').split.nunique().max()!=1 or f.duplicated(KEY).any(): raise ValueError('Invalid structure split/source identities')
     jobs=[dict(task=t,model=m,representation=r,mode=c,seed=s) for t in tasks for m in models for r in reps
           for c in (modes if study_tasks()[t]['temperature'] else ['raw']) for s in seeds]
-    code=b''.join(Path(x).read_bytes() for x in [__file__,'il_mixer/conditions.py','il_mixer/tabular.py','scripts/run_tabular_benchmark.py','il_mixer/train.py','il_mixer/equations.py','il_mixer/tasks.py'])
+    code=b''.join(Path(x).read_bytes() for x in [__file__,'il_contrastive/conditions.py','il_contrastive/tabular.py','scripts/run_tabular_benchmark.py','il_contrastive/train.py','il_contrastive/equations.py','il_contrastive/tasks.py'])
     manifest=dict(schema='tabular_all_v1',settings={k:v for k,v in vars(a).items() if k not in ['run','job_index','job_timeout']},
                   data_sha256=digest(a.data),code_sha256=hashlib.sha256(code).hexdigest(),jobs=jobs,subset_run=a.smoke)
     out=Path(a.output);out.mkdir(parents=True,exist_ok=True);plan=out/'plan.json'

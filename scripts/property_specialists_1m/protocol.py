@@ -7,8 +7,8 @@ import sys
 import numpy as np
 import pandas as pd
 import torch
-from il_mixer.equations import study_tasks
-from il_mixer.pretraining import digest
+from il_contrastive.equations import study_tasks
+from il_contrastive.pretraining import digest
 from scripts import run_multitask_heads_study as legacy
 from scripts import run_multitask_heads_1m as parent_study
 from scripts.property_specialists.protocol import choose_tabular, loss_weights, ARMS, SEEDS, TAB

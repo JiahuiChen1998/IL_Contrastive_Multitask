@@ -3,9 +3,9 @@ import numpy as np
 import pandas as pd
 import pytest
 import torch
-from il_mixer.equations import EquationHead, choose_cp_degree, study_tasks, CONDITION_TASKS
-from il_mixer.graph import pack
-from il_mixer.model import ILMixer
+from il_contrastive.equations import EquationHead, choose_cp_degree, study_tasks, CONDITION_TASKS
+from il_contrastive.graph import pack
+from il_contrastive.model import ILMixer
 from scripts.run_ablation import variants
 
 

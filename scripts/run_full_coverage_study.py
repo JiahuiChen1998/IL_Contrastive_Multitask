@@ -11,8 +11,8 @@ import sys
 import time
 
 import torch
-from il_mixer.full_coverage import corpus_metadata
-from il_mixer.pretraining import digest
+from il_contrastive.full_coverage import corpus_metadata
+from il_contrastive.pretraining import digest
 from scripts.pretrain_full_coverage import atomic_json, source_hash
 from scripts.tabular_benchmark_archive import freeze
 
@@ -53,7 +53,7 @@ def make_plan():
                 if checkpoint:
                     cmd += ['--pretrained-encoder', checkpoint]
                 jobs.append(dict(scale=scale, seed=seed, task=task, output=str(dest), command=cmd, checkpoint=checkpoint))
-    sources = sorted(Path('il_mixer').glob('*.py'))+[Path(__file__), Path('scripts/train_coverage_benchmark.py')]
+    sources = sorted(Path('il_contrastive').glob('*.py'))+[Path(__file__), Path('scripts/train_coverage_benchmark.py')]
     return dict(schema='pretraining_full_coverage_v1', scales=SCALES, tasks=TASKS, seeds=SEEDS,
                 passes=3, batch_size=128, hidden=64, layers=3, pretraining_seed=42,
                 data_sha256=frozen['data_sha256'], frozen_manifest_sha256=digest('data/benchmarks/il_v1/manifest.json'),

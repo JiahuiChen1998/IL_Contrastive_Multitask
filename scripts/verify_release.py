@@ -6,7 +6,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-from il_mixer.train import fit_scalers, transformed
+from il_contrastive.train import fit_scalers, transformed
 from scripts.audit_coverage_predictions import audit_predictions
 
 ROOT = Path(__file__).resolve().parents[1]

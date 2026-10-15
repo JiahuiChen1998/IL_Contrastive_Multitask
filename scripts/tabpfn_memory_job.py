@@ -13,10 +13,10 @@ import numpy as np
 import pandas as pd
 import torch
 
-from il_mixer.equations import study_tasks
-from il_mixer.pretraining import digest
-from il_mixer.tabular import feature_matrix, TrainPreprocessor
-from il_mixer.train import transformed
+from il_contrastive.equations import study_tasks
+from il_contrastive.pretraining import digest
+from il_contrastive.tabular import feature_matrix, TrainPreprocessor
+from il_contrastive.train import transformed
 from scripts.run_tabular_benchmark import scores, write_json
 from scripts.tabular_benchmark_archive import freeze
 
@@ -44,8 +44,8 @@ def main():
     frame = frame[frame.task == a.task].copy()
     job = dict(task=a.task, model='tabpfn', representation=a.representation, mode='raw', seed=a.seed)
     versions = {n: importlib.metadata.version(n) for n in ['tabpfn','torch','numpy','pandas','rdkit','scikit-learn']}
-    source_files = [__file__, 'il_mixer/tabular.py', 'il_mixer/train.py', 'il_mixer/equations.py',
-                    'il_mixer/tasks.py', 'scripts/run_tabular_benchmark.py']
+    source_files = [__file__, 'il_contrastive/tabular.py', 'il_contrastive/train.py', 'il_contrastive/equations.py',
+                    'il_contrastive/tasks.py', 'scripts/run_tabular_benchmark.py']
     plan = dict(schema='tabpfn_memory_v2', jobs=[job], data_sha256=frozen['data_sha256'],
         subset_run=False, checkpoint_sha256=CHECKPOINT_SHA,
         settings=dict(ignore_pretraining_limits=True, version='V2', estimators=4, device='cuda',

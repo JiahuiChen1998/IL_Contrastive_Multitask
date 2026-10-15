@@ -10,7 +10,7 @@ import time
 import numpy as np
 import pandas as pd
 import torch
-from il_mixer.rdkit_logging import suppress_isolated_hydrogen_warning
+from il_contrastive.rdkit_logging import suppress_isolated_hydrogen_warning
 from scripts.pretrain_full_coverage import atomic_json
 
 
@@ -28,7 +28,7 @@ def main():
         torch=str(torch.__version__),numpy=np.__version__,pandas=pd.__version__))
     atomic_json(state,out/'execution.json')
     try:
-        runpy.run_module('il_mixer.train',run_name='__main__')
+        runpy.run_module('il_contrastive.train',run_name='__main__')
         state['state']='complete'
     except BaseException as error:
         state.update(state='failed',error=f'{type(error).__name__}: {error}')

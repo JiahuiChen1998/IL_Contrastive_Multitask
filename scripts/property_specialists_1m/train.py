@@ -12,13 +12,13 @@ import numpy as np
 import pandas as pd
 import torch
 
-from il_mixer.pretraining import load_encoder
-from il_mixer.rdkit_logging import suppress_isolated_hydrogen_warning
-from il_mixer.train import batch, evaluate, fit_scalers, transformed
+from il_contrastive.pretraining import load_encoder
+from il_contrastive.rdkit_logging import suppress_isolated_hydrogen_warning
+from il_contrastive.train import batch, evaluate, fit_scalers, transformed
 from scripts.pretrain_full_coverage import atomic_json
-from il_mixer.model import ILMixer
+from il_contrastive.model import ILMixer
 from .protocol import DATA, verify_inputs
-from il_mixer.pretraining import digest
+from il_contrastive.pretraining import digest
 from scripts.application_weighted_1m.train import compare_replay
 
 

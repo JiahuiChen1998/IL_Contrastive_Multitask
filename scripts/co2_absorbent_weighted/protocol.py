@@ -4,8 +4,8 @@ import json
 from pathlib import Path
 import sys
 
-from il_mixer.equations import study_tasks
-from il_mixer.pretraining import digest
+from il_contrastive.equations import study_tasks
+from il_contrastive.pretraining import digest
 from scripts import run_multitask_heads_study as legacy
 
 ROOT=legacy.ROOT

@@ -9,8 +9,8 @@ from pathlib import Path
 import sqlite3
 import pandas as pd
 from rdkit import Chem, RDLogger
-from il_mixer.graph import canonicalize, graph
-from il_mixer.pretraining import digest
+from il_contrastive.graph import canonicalize, graph
+from il_contrastive.pretraining import digest
 
 
 def main():
