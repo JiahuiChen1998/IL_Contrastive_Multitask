@@ -71,6 +71,6 @@ Primary MAE uses **ln-viscosity** and native targets for the other properties, i
 
 ## Attribution and license
 
-Original project code is released under [MIT](LICENSE), as requested by the authors. Apache-2.0 notices for the Bamboo-inspired architecture, ILTransR data and LimiX source are retained in [third-party notices](THIRD_PARTY_NOTICES.md) and `licenses/`. External model weights and supplied pretraining inputs retain their own provenance and terms; MIT does not relicense them.
+Original project code is released under [MIT](LICENSE), as requested by the authors. External model weights and supplied pretraining inputs retain their own provenance and terms; MIT does not relicense them.
 
 The original property workbooks are from [ILTransR](https://github.com/GuzhongChen/ILTransR), pinned to commit `ff5e55cfb8162b0706fc2d88ca5cd384705686b1`. Use `python -m scripts.fetch_data` if you need those workbooks; hashes are verified before use. Citation metadata is in [CITATION.cff](CITATION.cff).
